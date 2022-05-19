@@ -6,7 +6,7 @@ export default function useIndexCard() {
 
     const [indexCards, setIndexCards] = useState<IndexCard[]>([])
 
-    const addNewIndexCard = (newIndexCard: Omit<IndexCard, "id">) => {
+    const addNewIndexCard: (newIndexCard: Omit<IndexCard, "id">) => void = (newIndexCard) => {
         postIndexCard(newIndexCard)
             .then(addedIndexCard => setIndexCards([...indexCards, addedIndexCard]))
             .catch(()=>console.log("failed to add"))

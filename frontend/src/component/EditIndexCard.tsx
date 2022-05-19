@@ -1,8 +1,11 @@
 import {Icon, IconButton, TextField} from "@mui/material";
 import {FormEvent, useState} from "react";
 import {IndexCard} from "../model/IndexCard";
+import useIndexCard from "../hook/useIndexCard";
 
 export default function EditIndexCard() {
+
+    const addNewIndexCard = useIndexCard()
 
     const [term1, setTerm1] = useState("")
     const [term2, setTerm2] = useState("")
@@ -11,18 +14,19 @@ export default function EditIndexCard() {
         option === 1 ? setTerm1(term) : setTerm2(term)
     }
 
-    function submitIndexCard(event: FormEvent) {
+    const submitIndexCard = (event: FormEvent) => {
 
         event.preventDefault()
         if (!term1 || !term2) {
             console.log("Enter a value") //TODO: TOASTY
             return
         }
-
         const newIndexCard: Omit<IndexCard, "id"> = {
             term1: term1,
             term2: term2
         }
+        addNewIndexCard(newIndexCard)
+
 
 
     }
