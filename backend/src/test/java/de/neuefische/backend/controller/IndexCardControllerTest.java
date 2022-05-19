@@ -1,4 +1,4 @@
-package de.neuefische.backend.model.controller;
+package de.neuefische.backend.controller;
 
 import de.neuefische.backend.model.IndexCard;
 import de.neuefische.backend.repository.IndexCardRepository;
