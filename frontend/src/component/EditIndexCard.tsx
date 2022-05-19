@@ -1,11 +1,12 @@
 import {Icon, IconButton, TextField} from "@mui/material";
 import {FormEvent, useState} from "react";
 import {IndexCard} from "../model/IndexCard";
-import useIndexCard from "../hook/useIndexCard";
 
-export default function EditIndexCard() {
+type EditIndexCardProps= {
+    addNewIndexCard: (newIndexCard: Omit<IndexCard, "id">) => void
+}
 
-    const addNewIndexCard = useIndexCard()
+export default function EditIndexCard({addNewIndexCard}: EditIndexCardProps) {
 
     const [term1, setTerm1] = useState("")
     const [term2, setTerm2] = useState("")
@@ -26,9 +27,6 @@ export default function EditIndexCard() {
             term2: term2
         }
         addNewIndexCard(newIndexCard)
-
-
-
     }
 
     return <div>

@@ -11,4 +11,5 @@ export default function useIndexCard() {
             .then(addedIndexCard => setIndexCards([...indexCards, addedIndexCard]))
             .catch(()=>console.log("failed to add"))
     }
+    return {addNewIndexCard}
 }
