@@ -17,6 +17,6 @@ public class IndexCard {
 
     @Id
     private String id;
-    private String languageA;
-    private String languageB;
+    private String term1;
+    private String term2;
 }
