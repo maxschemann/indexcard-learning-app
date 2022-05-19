@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@Builder
 public class IndexCardService {
 
     private final IndexCardRepository indexCardRepo;
