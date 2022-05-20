@@ -15,11 +15,11 @@ export const cardTheme = createTheme({
         },
         MuiFab: {
             defaultProps: {
-                size: 'medium',
+                size: 'large',
             },
             styleOverrides: {
                 root: {
-                    margin: '7px',
+                    marginLeft: '20px',
                 },
             },
         },

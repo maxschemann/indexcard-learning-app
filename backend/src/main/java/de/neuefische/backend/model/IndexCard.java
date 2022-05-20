@@ -19,4 +19,5 @@ public class IndexCard {
     private String id;
     private String term1;
     private String term2;
+    private Difficulty difficulty;
 }

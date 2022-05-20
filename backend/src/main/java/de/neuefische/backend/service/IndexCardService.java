@@ -2,7 +2,6 @@ package de.neuefische.backend.service;
 
 import de.neuefische.backend.model.IndexCard;
 import de.neuefische.backend.repository.IndexCardRepository;
-import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
