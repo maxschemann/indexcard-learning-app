@@ -18,7 +18,7 @@ export default function EditIndexCard({addNewIndexCard}: EditIndexCardProps) {
     const [term1, setTerm1] = useState("")
     const [term2, setTerm2] = useState("")
 
-    function updateTerm(option: 1 | 2, term: string) {
+    const updateTerm = (option: 1 | 2, term: string) => {
         option === 1 ? setTerm1(term) : setTerm2(term)
     }
 
