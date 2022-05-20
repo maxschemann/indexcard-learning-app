@@ -42,28 +42,44 @@ export default function EditIndexCard({addNewIndexCard}: EditIndexCardProps) {
         <Card>
             <CardContent>
                 <form onSubmit={submitIndexCard}>
-                    <div>
+                    <div id={"topRow"}>
                         <TextField label={"Origin"}
                                    variant={"outlined"}
                                    value={term1}
                                    placeholder={"Enter a word..."}
                                    multiline
+                                   sx={{padding: '5px'}}
                                    onChange={event => updateTerm(1, event.target.value)}/>
                         <TextField label={"Target"}
                                    variant={"outlined"}
                                    value={term2}
                                    placeholder={"Enter a translation.."}
                                    multiline
+                                   sx={{padding: '5px'}}
                                    onChange={event => updateTerm(2, event.target.value)}/>
                         <Fab type={"submit"}
-                            size={"small"}>
+                            size={"small"}
+                            sx={{marginTop: '10px',
+                                marginLeft:'5px'}}>
                             <AddIcon/>
                         </Fab>
                     </div>
-                    <div>
-                    <Fab size={"medium"}><SentimentSatisfiedAltIcon/></Fab>
-                    <Fab size={"medium"}><SentimentSatisfiedIcon/></Fab>
-                    <Fab size={"medium"}><SentimentDissatisfiedIcon/></Fab>
+                    <div id={"bottomRow"}>
+                    <Fab size={"medium"}
+                         sx={{margin: '10px',
+                             backgroundColor: '#07bc0c'}}>
+                        <SentimentSatisfiedAltIcon/>
+                    </Fab>
+                    <Fab size={"medium"}
+                         sx={{margin: '10px',
+                             backgroundColor: '#f1c40f'}}>
+                        <SentimentSatisfiedIcon/>
+                    </Fab>
+                    <Fab size={"medium"}
+                         sx={{margin: '10px',
+                             backgroundColor: '#e74c3c'}}>
+                        <SentimentDissatisfiedIcon/>
+                    </Fab>
                     </div>
                 </form>
             </CardContent>
