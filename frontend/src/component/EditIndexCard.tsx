@@ -4,7 +4,7 @@ import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
 import {FormEvent, useState} from "react";
-import {IndexCard} from "../model/IndexCard";
+import {Difficulty, IndexCard} from "../model/IndexCard";
 import {toast} from "react-toastify";
 import '../styles/EditIndexCard.css'
 import {cardTheme} from "../styles/themes";
@@ -17,6 +17,7 @@ export default function EditIndexCard({addNewIndexCard}: EditIndexCardProps) {
 
     const [term1, setTerm1] = useState("")
     const [term2, setTerm2] = useState("")
+    const [difficulty, setDifficulty] = useState<Difficulty>()
 
     const updateTerm = (option: 1 | 2, term: string) => {
         option === 1 ? setTerm1(term) : setTerm2(term)
