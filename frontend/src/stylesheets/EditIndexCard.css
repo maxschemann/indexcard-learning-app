@@ -8,10 +8,6 @@ form div{
     padding: 5px;
 }
 
-#topRow .MuiTextField-root {
-    padding: 5px;
-}
-
 #topRow .MuiFab-root{
     margin-top: 7px;
     margin-left: 5px;
