@@ -1,5 +1,6 @@
 package de.neuefische.backend.controller;
 
+import de.neuefische.backend.model.Difficulty;
 import de.neuefische.backend.model.IndexCard;
 import de.neuefische.backend.repository.IndexCardRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +28,7 @@ class IndexCardControllerTest {
     @Test
     void addNewIndexCard() {
         //given
-        IndexCard testCard= IndexCard.builder().term1("test1").term2("test2").build();
+        IndexCard testCard= IndexCard.builder().term1("test1").term2("test2").difficulty(Difficulty.EASY).build();
         //when
         IndexCard actual = testClient.post()
                 .uri("/api/indexcard")
@@ -40,7 +41,7 @@ class IndexCardControllerTest {
         //then
         assertNotNull(actual);
         assertNotNull(actual.getId());
-        IndexCard expected = IndexCard.builder().id(actual.getId()).term1("test1").term2("test2").build();
+        IndexCard expected = IndexCard.builder().id(actual.getId()).term1("test1").term2("test2").difficulty(Difficulty.EASY).build();
         assertEquals(expected, actual);
     }
 }

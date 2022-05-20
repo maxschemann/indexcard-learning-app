@@ -17,7 +17,7 @@ export default function EditIndexCard({addNewIndexCard}: EditIndexCardProps) {
 
     const [term1, setTerm1] = useState("")
     const [term2, setTerm2] = useState("")
-    const [difficulty, setDifficulty] = useState<Difficulty>()
+    const [difficulty, setDifficulty] = useState<Difficulty>(Difficulty.HARD)
 
     const updateTerm = (option: 1 | 2, term: string) => {
         option === 1 ? setTerm1(term) : setTerm2(term)
@@ -36,6 +36,7 @@ export default function EditIndexCard({addNewIndexCard}: EditIndexCardProps) {
         const newIndexCard: Omit<IndexCard, "id"> = {
             term1: term1,
             term2: term2,
+            difficulty: difficulty
         }
         addNewIndexCard(newIndexCard)
     }
