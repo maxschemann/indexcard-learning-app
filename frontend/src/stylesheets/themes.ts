@@ -17,6 +17,11 @@ export const cardTheme = createTheme({
             defaultProps: {
                 size: 'medium',
             },
+            styleOverrides: {
+                root: {
+                    margin: '7px',
+                },
+            },
         },
     },
 })
