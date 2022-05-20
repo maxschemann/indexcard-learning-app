@@ -6,8 +6,8 @@ import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied
 import {FormEvent, useState} from "react";
 import {IndexCard} from "../model/IndexCard";
 import {toast} from "react-toastify";
-import '../stylesheets/EditIndexCard.css'
-import {cardTheme} from "../stylesheets/themes";
+import '../styles/EditIndexCard.css'
+import {cardTheme} from "../styles/themes";
 
 type EditIndexCardProps = {
     addNewIndexCard: (newIndexCard: Omit<IndexCard, "id">) => void

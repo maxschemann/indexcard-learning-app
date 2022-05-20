@@ -1,5 +1,5 @@
 import React from 'react';
-import './stylesheets/App.css';
+import './styles/App.css';
 import EditIndexCard from "./component/EditIndexCard";
 import useIndexCard from "./hook/useIndexCard";
 import {ToastContainer} from "react-toastify";
