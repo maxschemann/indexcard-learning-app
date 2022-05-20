@@ -1,6 +1,7 @@
 import {Icon, IconButton, TextField} from "@mui/material";
 import {FormEvent, useState} from "react";
 import {IndexCard} from "../model/IndexCard";
+import {toast} from "react-toastify";
 
 type EditIndexCardProps = {
     addNewIndexCard: (newIndexCard: Omit<IndexCard, "id">) => void
@@ -18,7 +19,7 @@ export default function EditIndexCard({addNewIndexCard}: EditIndexCardProps) {
     const submitIndexCard = (event: FormEvent) => {
         event.preventDefault()
         if (!term1 || !term2) {
-            console.log("Enter a value") //TODO: TOASTY
+            toast.error("Enter a value")
             return
         }
         const newIndexCard: Omit<IndexCard, "id"> = {

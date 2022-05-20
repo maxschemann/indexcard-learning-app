@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class IndexCardDto {
 
-    private String languageA;
-    private String languageB;
+    private String term1;
+    private String term2;
 }
