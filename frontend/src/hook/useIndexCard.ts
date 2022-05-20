@@ -1,6 +1,7 @@
 import {IndexCard} from "../model/IndexCard";
 import {postIndexCard} from "../service/apiService";
 import {useState} from "react";
+import {toast} from "react-toastify";
 
 export default function useIndexCard() {
 
@@ -9,7 +10,8 @@ export default function useIndexCard() {
     const addNewIndexCard: (newIndexCard: Omit<IndexCard, "id">) => void = (newIndexCard) => {
         postIndexCard(newIndexCard)
             .then(addedIndexCard => setIndexCards([...indexCards, addedIndexCard]))
-            .catch(()=>console.log("failed to add"))
+            .then(() => toast.success("Index card saved!"))
+            .catch(() => toast.error("Failed to add"))
     }
     return {addNewIndexCard}
 }
