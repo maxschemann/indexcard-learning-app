@@ -1,0 +1,11 @@
+#indexCard {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+#topRow {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
