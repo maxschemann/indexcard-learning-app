@@ -1,0 +1,14 @@
+#editIndexCard {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+form div {
+    padding: 5px;
+}
+
+#bottomRow {
+    display: flex;
+    justify-content: center;
+}
