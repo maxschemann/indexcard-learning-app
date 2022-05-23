@@ -5,9 +5,7 @@ import de.neuefische.backend.model.IndexCard;
 import de.neuefische.backend.model.dto.IndexCardDto;
 import de.neuefische.backend.repository.IndexCardRepository;
 import org.junit.jupiter.api.Test;
-
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 

@@ -9,9 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.reactive.server.WebTestClient;
-
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -50,7 +48,7 @@ class IndexCardControllerTest {
 
     @Test
     void addNewIndexCard() {
-        //given testCard1
+        //given testCardDto1
         //when
         IndexCard actual = testClient.post()
                 .uri("/api/indexcard")
@@ -76,7 +74,6 @@ class IndexCardControllerTest {
     @Test
     void getAllIndexCards() {
         //given
-
         repo.insert(testCard1);
         repo.insert(testCard2);
         //when
