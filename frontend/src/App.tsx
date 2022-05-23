@@ -6,6 +6,7 @@ import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
 import Header from "./component/Header";
 import IndexCardOverview from "./component/IndexCardOverview";
+import {Route, Routes} from 'react-router-dom';
 
 function App() {
 
@@ -15,8 +16,12 @@ function App() {
         <div id={"app"}>
             <Header/>
             <ToastContainer/>
-            <IndexCardOverview indexCards={indexCards}/>
-            <EditIndexCard addNewIndexCard={addNewIndexCard}/>
+            <Routes>
+                <Route path="/"
+                       element={<IndexCardOverview indexCards={indexCards}/>}/>
+                <Route path="/add"
+                       element={<EditIndexCard addNewIndexCard={addNewIndexCard}/>}/>
+            </Routes>
         </div>
     );
 }

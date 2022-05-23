@@ -39,7 +39,7 @@ class IndexCardControllerTest {
             .difficulty(Difficulty.EASY)
             .build();
 
-    public final IndexCard testCard2= IndexCard.builder()
+    private final IndexCard testCard2= IndexCard.builder()
             .id("456")
             .term1("test1")
             .term2("test2")
