@@ -14,7 +14,7 @@ type EditIndexCardProps = {
     addNewIndexCard: (newIndexCard: Omit<IndexCard, "id">) => void
 }
 
-export default function EditIndexCardComponent({addNewIndexCard}: EditIndexCardProps) {
+export default function EditIndexCard({addNewIndexCard}: EditIndexCardProps) {
 
     const [term1, setTerm1] = useState("")
     const [term2, setTerm2] = useState("")
