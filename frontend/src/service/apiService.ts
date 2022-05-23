@@ -6,3 +6,8 @@ export const postIndexCard: (indexCard: Omit<IndexCard, "id">) => Promise<IndexC
         .then(response => response.data)
 }
 
+export const getAllIndexCards = () => {
+    return axios.get("/api/indexcard")
+        .then(response => response.data)
+}
+

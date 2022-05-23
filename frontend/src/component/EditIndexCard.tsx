@@ -6,7 +6,7 @@ import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied
 import {FormEvent, useState} from "react";
 import {Difficulty, IndexCard} from "../model/IndexCard";
 import {toast} from "react-toastify";
-import '../styles/EditIndexCard.css'
+import '../styles/EditIndexCardComponent.css'
 import {cardTheme} from "../styles/themes";
 import ButtonGroup from '@mui/material/ButtonGroup';
 

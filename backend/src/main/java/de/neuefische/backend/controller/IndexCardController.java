@@ -1,11 +1,10 @@
 package de.neuefische.backend.controller;
 
 import de.neuefische.backend.model.IndexCard;
+import de.neuefische.backend.model.dto.IndexCardDto;
 import de.neuefische.backend.service.IndexCardService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/indexcard")
@@ -18,7 +17,12 @@ public class IndexCardController {
     }
 
     @PostMapping
-    public IndexCard addNewIndexCard (@RequestBody IndexCard indexCard) {
-        return service.addNewIndexCard(indexCard);
+    public IndexCard addNewIndexCard (@RequestBody IndexCardDto indexCardDto) {
+        return service.addNewIndexCard(indexCardDto);
+    }
+
+    @GetMapping
+    public List<IndexCard> getAllIndexCards () {
+        return service.getAllIndexCards();
     }
 }
