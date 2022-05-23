@@ -10,7 +10,7 @@ import {Route, Routes} from 'react-router-dom';
 
 function App() {
 
-    const {indexCards, addNewIndexCard} = useIndexCard()
+    const {indexCards} = useIndexCard()
 
     return (
         <div id={"app"}>
@@ -20,7 +20,7 @@ function App() {
                 <Route path="/"
                        element={<IndexCardOverview indexCards={indexCards}/>}/>
                 <Route path="/add"
-                       element={<EditIndexCard addNewIndexCard={addNewIndexCard}/>}/>
+                       element={<EditIndexCard/>}/>
             </Routes>
         </div>
     );
