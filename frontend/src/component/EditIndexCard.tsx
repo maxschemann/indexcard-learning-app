@@ -3,7 +3,7 @@ import AddIcon from '@mui/icons-material/Add';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
-import {FormEvent, useEffect, useState} from "react";
+import {FormEvent, useState} from "react";
 import {Difficulty, IndexCard} from "../model/IndexCard";
 import {toast} from "react-toastify";
 import '../styles/EditIndexCardComponent.css'
@@ -17,17 +17,11 @@ type EditIndexCardProps = {
 
 export default function EditIndexCard({indexCard}: EditIndexCardProps) {
 
-    const [term1, setTerm1] = useState("")
-    const [term2, setTerm2] = useState("")
-    const [difficulty, setDifficulty] = useState<Difficulty>(Difficulty.HARD)
-    const {addNewIndexCard} = useIndexCard()
+    const [term1, setTerm1] = useState(indexCard ? indexCard.term1 : "")
+    const [term2, setTerm2] = useState(indexCard ? indexCard.term2 : "")
+    const [difficulty, setDifficulty] = useState<Difficulty>(indexCard ? indexCard.difficulty : Difficulty.HARD)
 
-    useEffect(() => {
-        if (indexCard) {
-            setTerm1(indexCard.term1)
-            setTerm2(indexCard.term2)
-        }
-    }, [])
+    const {addNewIndexCard} = useIndexCard()
 
     const submitIndexCard = (event: FormEvent) => {
         event.preventDefault()
