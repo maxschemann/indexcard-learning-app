@@ -13,7 +13,7 @@ type IndexCardFormProps = {
     indexCard?: IndexCard
 }
 
-export default function IndexCardEditForm({indexCard}: IndexCardFormProps) {
+export default function EditIndexCard({indexCard}: IndexCardFormProps) {
 
     const [term1, setTerm1] = useState(indexCard ? indexCard.term1 : "")
     const [term2, setTerm2] = useState(indexCard ? indexCard.term2 : "")

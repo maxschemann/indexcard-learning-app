@@ -2,7 +2,7 @@ import {IndexCard} from "../model/IndexCard";
 import {Button, Card, CardContent} from "@mui/material";
 import '../styles/IndexCardComponent.css';
 import IndexCardData from "./IndexCardData";
-import IndexCardEditForm from "./IndexCardEditForm";
+import EditIndexCard from "./EditIndexCard";
 import {useState} from "react";
 
 type IndexCardProps = {
@@ -20,7 +20,7 @@ export default function IndexCardComponent({indexCard}: IndexCardProps) {
     return (<Card>
         <CardContent>
             {edit ? <div>
-            <IndexCardEditForm indexCard={indexCard}/>
+            <EditIndexCard indexCard={indexCard}/>
             <Button onClick={switchEdit}>Edit</Button>
         </div>
             : <div>

@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import Header from "./component/Header";
 import IndexCardOverview from "./component/IndexCardOverview";
 import {Route, Routes} from 'react-router-dom';
-import IndexCardEditForm from "./component/IndexCardEditForm";
+import EditIndexCard from "./component/EditIndexCard";
 
 function App() {
 
@@ -17,7 +17,7 @@ function App() {
                 <Route path="/"
                        element={<IndexCardOverview/>}/>
                 <Route path="/add"
-                       element={<IndexCardEditForm/>}/>
+                       element={<EditIndexCard/>}/>
             </Routes>
         </div>
     );
