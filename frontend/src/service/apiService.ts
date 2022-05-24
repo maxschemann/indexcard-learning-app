@@ -11,3 +11,8 @@ export const getAllIndexCards = () => {
         .then(response => response.data)
 }
 
+export const putIndexCard = (indexCard: IndexCard) => {
+    return axios.put("/api/indexcard", indexCard)
+        .then(response => response.data)
+}
+
