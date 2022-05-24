@@ -1,4 +1,4 @@
-import {Button, Fab, TextField} from "@mui/material";
+import {Button, Card, CardContent, Fab, TextField, ThemeProvider} from "@mui/material";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
 import SentimentSatisfiedIcon from "@mui/icons-material/SentimentSatisfied";
@@ -8,6 +8,7 @@ import {FormEvent, useState} from "react";
 import {toast} from "react-toastify";
 import {Difficulty, IndexCard} from "../model/IndexCard";
 import useIndexCard from "../hook/useIndexCard";
+import {cardTheme} from "../styles/themes";
 
 type IndexCardFormProps = {
     indexCard?: IndexCard
@@ -33,10 +34,10 @@ export default function EditIndexCard({indexCard}: IndexCardFormProps) {
         }
         if (!indexCard) {
             const newIndexCard = createNewIndexCard()
-                addNewIndexCard(newIndexCard)
+            addNewIndexCard(newIndexCard)
         } else {
             const newIndexCard = {...createNewIndexCard(), id: indexCard.id}
-                updateIndexCard(newIndexCard)
+            updateIndexCard(newIndexCard)
         }
     }
 
@@ -56,35 +57,42 @@ export default function EditIndexCard({indexCard}: IndexCardFormProps) {
         setDifficulty(difficulty)
     }
 
-    return (<form onSubmit={submitIndexCard}>
-        <div id={"topRow"}>
-            <TextField value={term1}
-                       placeholder={"Enter a word..."}
-                       onChange={event => updateTerm(1, event.target.value)}/>
-            <TextField value={term2}
-                       placeholder={"Enter a translation.."}
-                       onChange={event => updateTerm(2, event.target.value)}/>
+    return (<div id={"editIndexCard"}>
+            <ThemeProvider theme={cardTheme}>
+                <Card>
+                    <CardContent>
+                        <form onSubmit={submitIndexCard}>
+                            <div id={"topRow"}>
+                                <TextField value={term1}
+                                           placeholder={"Enter a word..."}
+                                           onChange={event => updateTerm(1, event.target.value)}/>
+                                <TextField value={term2}
+                                           placeholder={"Enter a translation.."}
+                                           onChange={event => updateTerm(2, event.target.value)}/>
+                            </div>
+                            <div id={"bottomRow"}>
+                                <ButtonGroup>
+                                    <Button sx={{backgroundColor: '#07bc0c'}}
+                                            onClick={() => selectDifficulty(0)}>
+                                        <SentimentSatisfiedAltIcon/>
+                                    </Button>
+                                    <Button sx={{backgroundColor: '#f1c40f'}}
+                                            onClick={() => selectDifficulty(1)}>
+                                        <SentimentSatisfiedIcon/>
+                                    </Button>
+                                    <Button sx={{backgroundColor: '#e74c3c'}}
+                                            onClick={() => selectDifficulty(2)}>
+                                        <SentimentDissatisfiedIcon/>
+                                    </Button>
+                                </ButtonGroup>
+                                <Fab type={"submit"}>
+                                    <AddIcon/>
+                                </Fab>
+                            </div>
+                        </form>
+                    </CardContent>
+                </Card>
+            </ThemeProvider>
         </div>
-        <div id={"bottomRow"}>
-            <ButtonGroup>
-                <Button sx={{backgroundColor: '#07bc0c'}}
-                        onClick={() => selectDifficulty(0)}>
-                    <SentimentSatisfiedAltIcon/>
-                </Button>
-                <Button sx={{backgroundColor: '#f1c40f'}}
-                        onClick={() => selectDifficulty(1)}>
-                    <SentimentSatisfiedIcon/>
-                </Button>
-                <Button sx={{backgroundColor: '#e74c3c'}}
-                        onClick={() => selectDifficulty(2)}>
-                    <SentimentDissatisfiedIcon/>
-                </Button>
-            </ButtonGroup>
-            <Fab type={"submit"}>
-                <AddIcon/>
-            </Fab>
-        </div>
-    </form>)
-
-
+    )
 }
