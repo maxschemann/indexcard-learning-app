@@ -9,7 +9,7 @@ import {toast} from "react-toastify";
 import {Difficulty, IndexCard} from "../model/IndexCard";
 import useIndexCard from "../hook/useIndexCard";
 import {cardTheme} from "../styles/themes";
-import '../styles/EditIndexCard.css'
+import '../styles/EditIndexCard.css';
 
 type IndexCardFormProps = {
     indexCard?: IndexCard
