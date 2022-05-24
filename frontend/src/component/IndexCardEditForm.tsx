@@ -7,18 +7,19 @@ import AddIcon from "@mui/icons-material/Add";
 import {FormEvent, useState} from "react";
 import {toast} from "react-toastify";
 import {Difficulty, IndexCard} from "../model/IndexCard";
+import useIndexCard from "../hook/useIndexCard";
 
 type IndexCardFormProps = {
     indexCard?: IndexCard
-    addNewIndexCard?: (newIndexCard: Omit<IndexCard, "id">) => void
-    updateIndexCard?: (indexCard: IndexCard) => void
 }
 
-export default function IndexCardForm({indexCard, addNewIndexCard, updateIndexCard}: IndexCardFormProps) {
+export default function IndexCardEditForm({indexCard}: IndexCardFormProps) {
 
     const [term1, setTerm1] = useState(indexCard ? indexCard.term1 : "")
     const [term2, setTerm2] = useState(indexCard ? indexCard.term2 : "")
     const [difficulty, setDifficulty] = useState<Difficulty>(indexCard ? indexCard.difficulty : Difficulty.HARD)
+
+    const {addNewIndexCard, updateIndexCard} = useIndexCard()
 
     const submitIndexCard = (event: FormEvent) => {
         event.preventDefault()
@@ -32,19 +33,14 @@ export default function IndexCardForm({indexCard, addNewIndexCard, updateIndexCa
         }
         if (!indexCard) {
             const newIndexCard = createNewIndexCard()
-            if (addNewIndexCard) {
                 addNewIndexCard(newIndexCard)
-            }
-        }
-        else {
+        } else {
             const newIndexCard = {...createNewIndexCard(), id: indexCard.id}
-            if (updateIndexCard) {
                 updateIndexCard(newIndexCard)
-            }
         }
     }
 
-    const createNewIndexCard= () => {
+    const createNewIndexCard = () => {
         return {
             term1: term1,
             term2: term2,

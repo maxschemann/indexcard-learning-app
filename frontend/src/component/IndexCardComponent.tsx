@@ -2,15 +2,14 @@ import {IndexCard} from "../model/IndexCard";
 import {Button, Card, CardContent} from "@mui/material";
 import '../styles/IndexCardComponent.css';
 import IndexCardData from "./IndexCardData";
-import IndexCardForm from "./IndexCardForm";
+import IndexCardEditForm from "./IndexCardEditForm";
 import {useState} from "react";
 
 type IndexCardProps = {
     indexCard: IndexCard
-    addNewIndexCard: (newIndexCard: Omit<IndexCard, "id">) => void
-    updateIndexCard: (indexCard: IndexCard) => void
 }
-export default function IndexCardComponent({indexCard, addNewIndexCard, updateIndexCard}: IndexCardProps) {
+
+export default function IndexCardComponent({indexCard}: IndexCardProps) {
 
     const [edit, setEdit] = useState<boolean>(false)
 
@@ -27,7 +26,7 @@ export default function IndexCardComponent({indexCard, addNewIndexCard, updateIn
         } else {
             return (
                 <div>
-                    <IndexCardForm indexCard={indexCard} addNewIndexCard={addNewIndexCard} updateIndexCard={updateIndexCard}/>
+                    <IndexCardEditForm indexCard={indexCard}/>
                     <Button onClick={switchEdit}>Edit</Button>
                 </div>
             )

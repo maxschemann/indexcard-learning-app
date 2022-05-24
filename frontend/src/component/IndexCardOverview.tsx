@@ -1,16 +1,13 @@
-import {IndexCard} from "../model/IndexCard";
 import IndexCardComponent from "./IndexCardComponent";
+import useIndexCard from "../hook/useIndexCard";
 
-type overviewProps= {
-    indexCards: IndexCard[]
-    addNewIndexCard: (newIndexCard: Omit<IndexCard, "id">) => void
-    updateIndexCard: (indexCard: IndexCard) => void
-}
+export default function IndexCardOverview() {
 
-export default function IndexCardOverview({indexCards, addNewIndexCard, updateIndexCard}: overviewProps) {
+    const {indexCards} = useIndexCard()
+
     return (
         <div>
-            {indexCards.map( card => <IndexCardComponent indexCard={card} addNewIndexCard={addNewIndexCard} updateIndexCard={updateIndexCard}/>)}
+            {indexCards.map(card => <IndexCardComponent indexCard={card}/>)}
         </div>
     )
 }

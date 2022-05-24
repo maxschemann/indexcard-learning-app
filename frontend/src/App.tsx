@@ -1,16 +1,13 @@
 import React from 'react';
 import './styles/App.css';
-import useIndexCard from "./hook/useIndexCard";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
 import Header from "./component/Header";
 import IndexCardOverview from "./component/IndexCardOverview";
 import {Route, Routes} from 'react-router-dom';
-import IndexCardForm from "./component/IndexCardForm";
+import IndexCardEditForm from "./component/IndexCardEditForm";
 
 function App() {
-
-    const {indexCards, addNewIndexCard, updateIndexCard} = useIndexCard()
 
     return (
         <div id={"app"}>
@@ -18,9 +15,9 @@ function App() {
             <ToastContainer/>
             <Routes>
                 <Route path="/"
-                       element={<IndexCardOverview indexCards={indexCards} addNewIndexCard={addNewIndexCard} updateIndexCard={updateIndexCard}/>}/>
+                       element={<IndexCardOverview/>}/>
                 <Route path="/add"
-                       element={<IndexCardForm addNewIndexCard={addNewIndexCard}/>}/>
+                       element={<IndexCardEditForm/>}/>
             </Routes>
         </div>
     );
