@@ -21,7 +21,7 @@ export default function useIndexCard() {
     }
 
     const updateIndexCard = (indexCard: IndexCard) => {
-        putIndexCard(indexCard)
+        return putIndexCard(indexCard)
             .then(() => setIndexCards(() => {
                 const updatedList = indexCards.filter(card => card.id != indexCard.id)
                 return {...updatedList, indexCard}

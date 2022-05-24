@@ -10,7 +10,7 @@ import IndexCardForm from "./component/IndexCardForm";
 
 function App() {
 
-    const {indexCards} = useIndexCard()
+    const {indexCards, addNewIndexCard, updateIndexCard} = useIndexCard()
 
     return (
         <div id={"app"}>
@@ -18,9 +18,9 @@ function App() {
             <ToastContainer/>
             <Routes>
                 <Route path="/"
-                       element={<IndexCardOverview indexCards={indexCards}/>}/>
+                       element={<IndexCardOverview indexCards={indexCards} addNewIndexCard={addNewIndexCard} updateIndexCard={updateIndexCard}/>}/>
                 <Route path="/add"
-                       element={<IndexCardForm/>}/>
+                       element={<IndexCardForm addNewIndexCard={addNewIndexCard}/>}/>
             </Routes>
         </div>
     );

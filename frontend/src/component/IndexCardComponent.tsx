@@ -7,9 +7,17 @@ import {useState} from "react";
 
 type IndexCardProps = {
     indexCard: IndexCard
+    addNewIndexCard: (newIndexCard: Omit<IndexCard, "id">) => void
+    updateIndexCard: (indexCard: IndexCard) => void
 }
-export default function IndexCardComponent({indexCard}: IndexCardProps) {
+export default function IndexCardComponent({indexCard, addNewIndexCard, updateIndexCard}: IndexCardProps) {
 
+    return (<div>
+        <IndexCardData indexCard={indexCard}/>
+        <Button>Edit</Button>
+    </div>)
+
+    /*
     const [edit, setEdit] = useState<boolean>(false)
 
     const switchEdit = () => {
@@ -25,7 +33,7 @@ export default function IndexCardComponent({indexCard}: IndexCardProps) {
         } else {
             return (
                 <div>
-                    <IndexCardForm indexCard={indexCard}/>
+                    <IndexCardForm indexCard={indexCard} addNewIndexCard={addNewIndexCard} updateIndexCard={updateIndexCard}/>
                     <Button onClick={switchEdit}>Edit</Button>
                 </div>
             )
@@ -37,6 +45,6 @@ export default function IndexCardComponent({indexCard}: IndexCardProps) {
             {renderedComponent()}
         </CardContent>
     </Card>)
-
+*/
 
 }

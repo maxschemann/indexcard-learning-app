@@ -11,15 +11,19 @@ import useIndexCard from "../hook/useIndexCard";
 
 type IndexCardFormProps = {
     indexCard?: IndexCard
+    addNewIndexCard?: (newIndexCard: Omit<IndexCard, "id">) => void
+    updateIndexCard?: (indexCard: IndexCard) => void
 }
-export default function IndexCardForm({indexCard}: IndexCardFormProps) {
+
+export default function IndexCardForm({indexCard, addNewIndexCard, updateIndexCard}: IndexCardFormProps) {
 
     const [term1, setTerm1] = useState(indexCard ? indexCard.term1 : "")
     const [term2, setTerm2] = useState(indexCard ? indexCard.term2 : "")
     const [difficulty, setDifficulty] = useState<Difficulty>(indexCard ? indexCard.difficulty : Difficulty.HARD)
 
+    /*
     const {addNewIndexCard, updateIndexCard} = useIndexCard()
-
+*/
     const submitIndexCard = (event: FormEvent) => {
         event.preventDefault()
         if (!term1) {
@@ -32,11 +36,15 @@ export default function IndexCardForm({indexCard}: IndexCardFormProps) {
         }
         if (!indexCard) {
             const newIndexCard = createNewIndexCard()
-            addNewIndexCard(newIndexCard)
+            if (addNewIndexCard) {
+                addNewIndexCard(newIndexCard)
+            }
         }
         else {
             const newIndexCard = {...createNewIndexCard(), id: indexCard.id}
-            updateIndexCard(newIndexCard)
+            if (updateIndexCard) {
+                updateIndexCard(newIndexCard)
+            }
         }
     }
 
