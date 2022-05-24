@@ -12,12 +12,6 @@ type IndexCardProps = {
 }
 export default function IndexCardComponent({indexCard, addNewIndexCard, updateIndexCard}: IndexCardProps) {
 
-    return (<div>
-        <IndexCardData indexCard={indexCard}/>
-        <Button>Edit</Button>
-    </div>)
-
-    /*
     const [edit, setEdit] = useState<boolean>(false)
 
     const switchEdit = () => {
@@ -45,6 +39,4 @@ export default function IndexCardComponent({indexCard, addNewIndexCard, updateIn
             {renderedComponent()}
         </CardContent>
     </Card>)
-*/
-
 }

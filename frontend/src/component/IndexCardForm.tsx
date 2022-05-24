@@ -7,7 +7,6 @@ import AddIcon from "@mui/icons-material/Add";
 import {FormEvent, useState} from "react";
 import {toast} from "react-toastify";
 import {Difficulty, IndexCard} from "../model/IndexCard";
-import useIndexCard from "../hook/useIndexCard";
 
 type IndexCardFormProps = {
     indexCard?: IndexCard
@@ -21,9 +20,6 @@ export default function IndexCardForm({indexCard, addNewIndexCard, updateIndexCa
     const [term2, setTerm2] = useState(indexCard ? indexCard.term2 : "")
     const [difficulty, setDifficulty] = useState<Difficulty>(indexCard ? indexCard.difficulty : Difficulty.HARD)
 
-    /*
-    const {addNewIndexCard, updateIndexCard} = useIndexCard()
-*/
     const submitIndexCard = (event: FormEvent) => {
         event.preventDefault()
         if (!term1) {
