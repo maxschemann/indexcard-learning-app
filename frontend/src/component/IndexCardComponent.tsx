@@ -17,25 +17,16 @@ export default function IndexCardComponent({indexCard}: IndexCardProps) {
         setEdit(!edit)
     }
 
-    const renderedComponent = () => {
-        if (!edit) {
-            return (<div>
-                <IndexCardData indexCard={indexCard}/>
-                <Button onClick={switchEdit}>Edit</Button>
-            </div>)
-        } else {
-            return (
-                <div>
-                    <IndexCardEditForm indexCard={indexCard}/>
-                    <Button onClick={switchEdit}>Edit</Button>
-                </div>
-            )
-        }
-    }
-
     return (<Card>
         <CardContent>
-            {renderedComponent()}
+            {edit ? <div>
+            <IndexCardEditForm indexCard={indexCard}/>
+            <Button onClick={switchEdit}>Edit</Button>
+        </div>
+            : <div>
+            <IndexCardData indexCard={indexCard}/>
+            <Button onClick={switchEdit}>Edit</Button>
+        </div>}
         </CardContent>
     </Card>)
 }
