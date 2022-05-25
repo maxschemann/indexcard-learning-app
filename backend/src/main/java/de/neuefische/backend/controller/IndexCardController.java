@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/indexcard")
+@RequestMapping("/api/index-card/")
 public class IndexCardController {
 
     private final IndexCardService service;
@@ -17,12 +17,17 @@ public class IndexCardController {
     }
 
     @PostMapping
-    public IndexCard addNewIndexCard (@RequestBody IndexCardDto indexCardDto) {
+    public IndexCard addNewIndexCard(@RequestBody IndexCardDto indexCardDto) {
         return service.addNewIndexCard(indexCardDto);
     }
 
     @GetMapping
-    public List<IndexCard> getAllIndexCards () {
+    public List<IndexCard> getAllIndexCards() {
         return service.getAllIndexCards();
+    }
+
+    @PutMapping("{id}")
+    public IndexCard updateIndexCard(@RequestBody IndexCardDto updatedIndexCard, @PathVariable String id) {
+        return service.updateIndexCard(id, updatedIndexCard);
     }
 }

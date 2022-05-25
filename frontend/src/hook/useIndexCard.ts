@@ -20,10 +20,10 @@ export default function useIndexCard() {
             .catch(() => toast.error("Failed to add!"))
     }
 
-    const updateIndexCard = (indexCard: IndexCard) => {
-         putIndexCard(indexCard)
+    const updateIndexCard = (id: string, indexCard: Omit<IndexCard, "id">) => {
+         putIndexCard(id, indexCard)
             .then(() => setIndexCards(() => {
-                const updatedList = indexCards.filter(card => card.id !== indexCard.id)
+                const updatedList = indexCards.filter(card => card.id !== id)
                 return {...updatedList, indexCard}
             }))
             .then(() => toast.success("Index card updated!"))

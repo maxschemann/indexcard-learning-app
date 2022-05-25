@@ -1,18 +1,20 @@
 import {IndexCard} from "../model/IndexCard";
 import axios from "axios";
 
-export const postIndexCard: (indexCard: Omit<IndexCard, "id">) => Promise<IndexCard> = (indexCard) => {
-    return axios.post("/api/indexcard", indexCard)
+const url= "/api/index-card/"
+
+export const postIndexCard: (indexCardDto: Omit<IndexCard, "id">) => Promise<IndexCard> = (indexCardDto) => {
+    return axios.post(url, indexCardDto)
         .then(response => response.data)
 }
 
 export const getAllIndexCards = () => {
-    return axios.get("/api/indexcard")
+    return axios.get(url)
         .then(response => response.data)
 }
 
-export const putIndexCard = (indexCard: IndexCard) => {
-    return axios.put("/api/indexcard", indexCard)
+export const putIndexCard = (id: string, indexCardDto: Omit<IndexCard, "id">) => {
+    return axios.put(url+id, indexCardDto)
         .then(response => response.data)
 }
 

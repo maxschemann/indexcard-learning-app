@@ -34,15 +34,15 @@ export default function EditIndexCard({indexCard}: IndexCardFormProps) {
             return
         }
         if (!indexCard) {
-            const newIndexCard = createNewIndexCard()
-            addNewIndexCard(newIndexCard)
+            const newIndexCardDto = createNewIndexCardDto()
+            addNewIndexCard(newIndexCardDto)
         } else {
-            const newIndexCard = {...createNewIndexCard(), id: indexCard.id}
-            updateIndexCard(newIndexCard)
+            const newIndexCardDto = createNewIndexCardDto()
+            updateIndexCard(indexCard.id, newIndexCardDto)
         }
     }
 
-    const createNewIndexCard = () => {
+    const createNewIndexCardDto = () => {
         return {
             term1: term1,
             term2: term2,
@@ -54,8 +54,8 @@ export default function EditIndexCard({indexCard}: IndexCardFormProps) {
         option === 1 ? setTerm1(term) : setTerm2(term)
     }
 
-    const selectDifficulty = (difficulty: number) => {
-        setDifficulty(difficulty)
+    const selectDifficulty = (difficultyOption: number) => {
+        setDifficulty(difficultyOption)
     }
 
     return (<div id={"editIndexCard"}>

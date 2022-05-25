@@ -36,14 +36,15 @@ class IndexCardServiceTest {
 
     @Test
     void addNewIndexCard() {
-        //given
-        IndexCard mockCard = IndexCard.builder()
+        //given dto
+        //when
+        IndexCard mockCard_noId = IndexCard.builder()
                 .term1("test1")
                 .term2("test2")
                 .difficulty(Difficulty.EASY)
                 .build();
-        //when
-        when(repo.insert(mockCard)).thenReturn(testCard1);
+
+        when(repo.insert(mockCard_noId)).thenReturn(testCard1);
         IndexCard actual = service.addNewIndexCard(testCardDto1);
         //then
         IndexCard expected = IndexCard.builder()
@@ -52,7 +53,7 @@ class IndexCardServiceTest {
                 .term2("test2")
                 .difficulty(Difficulty.EASY)
                 .build();
-        verify(repo).insert(mockCard);
+        verify(repo).insert(mockCard_noId);
         assertEquals(expected, actual);
     }
 
@@ -66,6 +67,22 @@ class IndexCardServiceTest {
         //then
         List<IndexCard> expected= List.of(testCard1, testCard2);
         verify(repo).findAll();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void updateIndexCard() {
+        //given existing card, id, dto
+        //when
+        when(repo.save(testCard1)).thenReturn(testCard1);
+        IndexCard actual = service.updateIndexCard(testCard1.getId(), testCardDto1);
+        //then
+        IndexCard expected = IndexCard.builder()
+                .id(testCard1.getId())
+                .term1("test1")
+                .term2("test2")
+                .difficulty(Difficulty.EASY)
+                .build();
         assertEquals(expected, actual);
     }
 }
