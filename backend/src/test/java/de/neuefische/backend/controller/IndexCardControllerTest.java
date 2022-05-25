@@ -26,6 +26,8 @@ class IndexCardControllerTest {
         repo.deleteAll();
     }
 
+    String baseUrl = "/api/index-card/";
+
     private final IndexCardDto testCardDto1= IndexCardDto.builder()
             .term1("test1")
             .term2("test2")
@@ -51,7 +53,7 @@ class IndexCardControllerTest {
         //given testCardDto1
         //when
         IndexCard actual = testClient.post()
-                .uri("/api/indexcard")
+                .uri(baseUrl)
                 .bodyValue(testCardDto1)
                 .exchange()
                 .expectStatus().is2xxSuccessful()
@@ -78,7 +80,7 @@ class IndexCardControllerTest {
         repo.insert(testCard2);
         //when
         List<IndexCard> actual= testClient.get()
-                .uri("/api/indexcard")
+                .uri(baseUrl)
                 .exchange()
                 .expectStatus().is2xxSuccessful()
                 .expectBodyList(IndexCard.class)
@@ -88,4 +90,34 @@ class IndexCardControllerTest {
         List<IndexCard> expected = List.of(testCard1, testCard2);
         assertEquals(expected, actual);
     }
+
+    @Test
+    void updateIndexCard() {
+        //given testCard1
+        repo.insert(testCard1);
+        IndexCardDto updatedIndexCard = IndexCardDto.builder()
+                .term1("updatedTerm1")
+                .term2("updatedTerm2")
+                .difficulty(Difficulty.MEDIUM)
+                .build();
+        //when
+        IndexCard actual = testClient.put()
+                .uri(baseUrl+testCard1.getId())
+                .bodyValue(updatedIndexCard)
+                .exchange()
+                .expectStatus().is2xxSuccessful()
+                .expectBody(IndexCard.class)
+                .returnResult()
+                .getResponseBody();
+        //then
+        IndexCard expected = IndexCard.builder()
+                .id(testCard1.getId())
+                .term1("updatedTerm1")
+                .term2("updatedTerm2")
+                .difficulty(Difficulty.MEDIUM)
+                .build();
+        assertEquals(expected, actual);
+    }
+
+
 }

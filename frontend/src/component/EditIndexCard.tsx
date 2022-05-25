@@ -54,8 +54,8 @@ export default function EditIndexCard({indexCard}: IndexCardFormProps) {
         option === 1 ? setTerm1(term) : setTerm2(term)
     }
 
-    const selectDifficulty = (difficulty: number) => {
-        setDifficulty(difficulty)
+    const selectDifficulty = (difficultyOption: number) => {
+        setDifficulty(difficultyOption)
     }
 
     return (<div id={"editIndexCard"}>
