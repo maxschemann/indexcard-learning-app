@@ -1,31 +1,32 @@
 import {IndexCard} from "../model/IndexCard";
-import {Box, Card, CardContent, Fab, Typography} from "@mui/material";
-import EditIcon from '@mui/icons-material/Edit';
+import {Button, Card, CardContent} from "@mui/material";
 import '../styles/IndexCardComponent.css';
+import IndexCardData from "./IndexCardData";
+import EditIndexCard from "./EditIndexCard";
+import {useState} from "react";
 
 type IndexCardProps = {
     indexCard: IndexCard
 }
+
 export default function IndexCardComponent({indexCard}: IndexCardProps) {
 
-    return (
-        <div id={"indexCard"}>
-            <Card>
-                <CardContent>
-                    <div id={"topRow"}>
-                        <Box>
-                            <Typography>{indexCard.term1}</Typography>
-                        </Box>
-                        <Box>
-                            <Typography>{indexCard.term2}</Typography>
-                        </Box>
-                        <Box>
-                            <Typography>{indexCard.difficulty}</Typography>
-                        </Box>
-                        <Fab><EditIcon/></Fab>
-                    </div>
-                </CardContent>
-            </Card>
+    const [edit, setEdit] = useState<boolean>(false)
+
+    const switchEdit = () => {
+        setEdit(!edit)
+    }
+
+    return (<Card>
+        <CardContent>
+            {edit ? <div>
+            <EditIndexCard indexCard={indexCard}/>
+            <Button onClick={switchEdit}>Edit</Button>
         </div>
-    )
+            : <div>
+            <IndexCardData indexCard={indexCard}/>
+            <Button onClick={switchEdit}>Edit</Button>
+        </div>}
+        </CardContent>
+    </Card>)
 }

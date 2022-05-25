@@ -1,28 +1,27 @@
 import {Button, Card, CardContent, Fab, TextField, ThemeProvider} from "@mui/material";
-import AddIcon from '@mui/icons-material/Add';
-import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
-import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
-import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
+import ButtonGroup from "@mui/material/ButtonGroup";
+import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
+import SentimentSatisfiedIcon from "@mui/icons-material/SentimentSatisfied";
+import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
+import AddIcon from "@mui/icons-material/Add";
 import {FormEvent, useState} from "react";
-import {Difficulty, IndexCard} from "../model/IndexCard";
 import {toast} from "react-toastify";
-import '../styles/EditIndexCardComponent.css'
+import {Difficulty, IndexCard} from "../model/IndexCard";
+import useIndexCard from "../hook/useIndexCard";
 import {cardTheme} from "../styles/themes";
-import ButtonGroup from '@mui/material/ButtonGroup';
+import '../styles/EditIndexCard.css';
 
-type EditIndexCardProps = {
-    addNewIndexCard: (newIndexCard: Omit<IndexCard, "id">) => void
+type IndexCardFormProps = {
+    indexCard?: IndexCard
 }
 
-export default function EditIndexCard({addNewIndexCard}: EditIndexCardProps) {
+export default function EditIndexCard({indexCard}: IndexCardFormProps) {
 
-    const [term1, setTerm1] = useState("")
-    const [term2, setTerm2] = useState("")
-    const [difficulty, setDifficulty] = useState<Difficulty>(Difficulty.HARD)
+    const [term1, setTerm1] = useState(indexCard ? indexCard.term1 : "")
+    const [term2, setTerm2] = useState(indexCard ? indexCard.term2 : "")
+    const [difficulty, setDifficulty] = useState<Difficulty>(indexCard ? indexCard.difficulty : Difficulty.HARD)
 
-    const updateTerm = (option: 1 | 2, term: string) => {
-        option === 1 ? setTerm1(term) : setTerm2(term)
-    }
+    const {addNewIndexCard, updateIndexCard} = useIndexCard()
 
     const submitIndexCard = (event: FormEvent) => {
         event.preventDefault()
@@ -34,12 +33,25 @@ export default function EditIndexCard({addNewIndexCard}: EditIndexCardProps) {
             toast.warn("Please enter a translation")
             return
         }
-        const newIndexCard: Omit<IndexCard, "id"> = {
+        if (!indexCard) {
+            const newIndexCard = createNewIndexCard()
+            addNewIndexCard(newIndexCard)
+        } else {
+            const newIndexCard = {...createNewIndexCard(), id: indexCard.id}
+            updateIndexCard(newIndexCard)
+        }
+    }
+
+    const createNewIndexCard = () => {
+        return {
             term1: term1,
             term2: term2,
             difficulty: difficulty
         }
-        addNewIndexCard(newIndexCard)
+    }
+
+    const updateTerm = (option: 1 | 2, term: string) => {
+        option === 1 ? setTerm1(term) : setTerm2(term)
     }
 
     const selectDifficulty = (difficulty: number) => {
@@ -83,5 +95,5 @@ export default function EditIndexCard({addNewIndexCard}: EditIndexCardProps) {
                 </Card>
             </ThemeProvider>
         </div>
-    );
+    )
 }

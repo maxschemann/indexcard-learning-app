@@ -1,14 +1,13 @@
-import {IndexCard} from "../model/IndexCard";
 import IndexCardComponent from "./IndexCardComponent";
+import useIndexCard from "../hook/useIndexCard";
 
-type overviewProps= {
-    indexCards: IndexCard[]
-}
+export default function IndexCardOverview() {
 
-export default function IndexCardOverview({indexCards}: overviewProps) {
+    const {indexCards} = useIndexCard()
+
     return (
         <div>
-            {indexCards.map( card => <IndexCardComponent indexCard={card}/>)}
+            {indexCards.map(card => <IndexCardComponent indexCard={card}/>)}
         </div>
     )
 }

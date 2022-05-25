@@ -1,5 +1,5 @@
 import {IndexCard} from "../model/IndexCard";
-import {getAllIndexCards, postIndexCard} from "../service/apiService";
+import {getAllIndexCards, postIndexCard, putIndexCard} from "../service/apiService";
 import {useEffect, useState} from "react";
 import {toast} from "react-toastify";
 
@@ -11,7 +11,7 @@ export default function useIndexCard() {
         getAllIndexCards()
             .then(response => setIndexCards(response))
             .catch(() => toast.error("Unable to fetch index cards!"))
-    })
+    }, [])
 
     const addNewIndexCard: (newIndexCard: Omit<IndexCard, "id">) => void = (newIndexCard) => {
         postIndexCard(newIndexCard)
@@ -20,5 +20,15 @@ export default function useIndexCard() {
             .catch(() => toast.error("Failed to add!"))
     }
 
-    return {indexCards, addNewIndexCard}
+    const updateIndexCard = (indexCard: IndexCard) => {
+         putIndexCard(indexCard)
+            .then(() => setIndexCards(() => {
+                const updatedList = indexCards.filter(card => card.id !== indexCard.id)
+                return {...updatedList, indexCard}
+            }))
+            .then(() => toast.success("Index card updated!"))
+            .catch(() => toast.error("Failed to add!"))
+    }
+
+    return {indexCards, addNewIndexCard, updateIndexCard}
 }
