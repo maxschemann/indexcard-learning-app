@@ -34,15 +34,15 @@ export default function EditIndexCard({indexCard}: IndexCardFormProps) {
             return
         }
         if (!indexCard) {
-            const newIndexCard = createNewIndexCard()
-            addNewIndexCard(newIndexCard)
+            const newIndexCardDto = createNewIndexCardDto()
+            addNewIndexCard(newIndexCardDto)
         } else {
-            const newIndexCard = {...createNewIndexCard(), id: indexCard.id}
-            updateIndexCard(newIndexCard)
+            const newIndexCardDto = createNewIndexCardDto()
+            updateIndexCard(indexCard.id, newIndexCardDto)
         }
     }
 
-    const createNewIndexCard = () => {
+    const createNewIndexCardDto = () => {
         return {
             term1: term1,
             term2: term2,
