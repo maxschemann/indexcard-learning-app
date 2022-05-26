@@ -10,6 +10,7 @@ import {Difficulty, IndexCard} from "../model/IndexCard";
 import useIndexCard from "../hook/useIndexCard";
 import {cardTheme} from "../styles/themes";
 import '../styles/EditIndexCard.css';
+import {deleteIndexCard} from "../service/apiService";
 
 type IndexCardFormProps = {
     indexCard?: IndexCard
@@ -58,6 +59,8 @@ export default function EditIndexCard({indexCard}: IndexCardFormProps) {
         setDifficulty(difficultyOption)
     }
 
+
+
     return (<div id={"editIndexCard"}>
             <ThemeProvider theme={cardTheme}>
                 <Card>
@@ -89,6 +92,7 @@ export default function EditIndexCard({indexCard}: IndexCardFormProps) {
                                 <Fab type={"submit"}>
                                     <AddIcon/>
                                 </Fab>
+                                {indexCard && <Button onClick={()=>deleteIndexCard(indexCard.id)}>Delete</Button>}
                             </div>
                         </form>
                     </CardContent>

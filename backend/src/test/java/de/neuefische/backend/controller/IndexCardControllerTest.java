@@ -119,5 +119,16 @@ class IndexCardControllerTest {
         assertEquals(expected, actual);
     }
 
-
+    @Test
+    void deleteIndexCardById() {
+        //given
+        repo.insert(testCard1);
+        //when
+        testClient.delete()
+                .uri(baseUrl+testCard1.getId())
+                .exchange()
+                .expectStatus().is2xxSuccessful();
+        //then
+        assertFalse(repo.existsById(testCard1.getId()));
+    }
 }

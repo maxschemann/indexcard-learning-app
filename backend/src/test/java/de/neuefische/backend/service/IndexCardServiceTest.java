@@ -85,4 +85,11 @@ class IndexCardServiceTest {
                 .build();
         assertEquals(expected, actual);
     }
+
+    @Test
+    void deleteIndexCardById() {
+        //given
+        repo.deleteById("123");
+        verify(repo).deleteById("123");
+    }
 }
