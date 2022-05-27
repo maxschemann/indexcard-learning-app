@@ -8,8 +8,6 @@ export default function IndexCardOverview() {
 
     const {indexCards, setIndexCards} = useIndexCard()
 
-    console.log("InOverview"+indexCards)
-
     return (
         <div>
             <SearchIndexCard indexCards={indexCards} setIndexCards={setIndexCards} />

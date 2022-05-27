@@ -12,8 +12,6 @@ export default function SearchIndexCard({indexCards, setIndexCards}: SearchIndex
     const [searchTerm, setSearchTerm] = useState<string>("")
 
     useEffect(() => {
-        console.log("UseEffect")
-        console.log("InSearch"+indexCards)
         setIndexCards(indexCards.filter(card => card.term1.includes(searchTerm) || card.term2.includes(searchTerm)))
     }, [searchTerm])
 
