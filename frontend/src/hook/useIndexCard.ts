@@ -36,5 +36,5 @@ export default function useIndexCard() {
             .catch(() => toast.error("Failed to delete!"))
     }
 
-    return {indexCards, addNewIndexCard, updateIndexCard, removeIndexCard}
+    return {indexCards, setIndexCards, addNewIndexCard, updateIndexCard, removeIndexCard}
 }

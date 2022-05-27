@@ -52,7 +52,6 @@ export default function EditIndexCard({indexCard}: IndexCardFormProps) {
         option === 1 ? setTerm1(term) : setTerm2(term)
     }
 
-
     return (<div id={"editIndexCard"}>
             <ThemeProvider theme={cardTheme}>
                 <Card>
