@@ -4,6 +4,7 @@ import de.neuefische.backend.model.IndexCard;
 import de.neuefische.backend.model.dto.IndexCardDto;
 import de.neuefische.backend.service.IndexCardService;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -29,5 +30,10 @@ public class IndexCardController {
     @PutMapping("{id}")
     public IndexCard updateIndexCard(@RequestBody IndexCardDto updatedIndexCard, @PathVariable String id) {
         return service.updateIndexCard(id, updatedIndexCard);
+    }
+
+    @DeleteMapping("{id}")
+    public void deleteIndexCardById(@PathVariable String id) {
+        service.deleteIndexCardById(id);
     }
 }

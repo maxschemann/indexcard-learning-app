@@ -1,5 +1,5 @@
 import {IndexCard} from "../model/IndexCard";
-import {getAllIndexCards, postIndexCard, putIndexCard} from "../service/apiService";
+import {deleteIndexCard, getAllIndexCards, postIndexCard, putIndexCard} from "../service/apiService";
 import {useEffect, useState} from "react";
 import {toast} from "react-toastify";
 
@@ -22,13 +22,19 @@ export default function useIndexCard() {
 
     const updateIndexCard = (id: string, indexCard: Omit<IndexCard, "id">) => {
          putIndexCard(id, indexCard)
-            .then(() => setIndexCards(() => {
-                const updatedList = indexCards.filter(card => card.id !== id)
-                return {...updatedList, indexCard}
-            }))
+            .then(updatedCard => setIndexCards(
+                indexCards.map(card => card.id === id? updatedCard : card)))
             .then(() => toast.success("Index card updated!"))
             .catch(() => toast.error("Failed to add!"))
     }
 
-    return {indexCards, addNewIndexCard, updateIndexCard}
+    const removeIndexCard = (id: string) => {
+        deleteIndexCard(id)
+            .then(() => setIndexCards(
+                indexCards.filter(card => card.id !== id)))
+            .then(() => toast.success("Index card deleted!"))
+            .catch(() => toast.error("Failed to delete!"))
+    }
+
+    return {indexCards, setIndexCards, addNewIndexCard, updateIndexCard, removeIndexCard}
 }
