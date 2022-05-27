@@ -1,12 +1,10 @@
-import {Button, Card, CardContent, Fab, TextField, ThemeProvider} from "@mui/material";
+import {Fab, TextField} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import {FormEvent, useState} from "react";
 import {toast} from "react-toastify";
 import {Difficulty, IndexCard} from "../model/IndexCard";
 import useIndexCard from "../hook/useIndexCard";
-import {cardTheme} from "../styles/themes";
 import '../styles/EditIndexCard.css';
-import {deleteIndexCard} from "../service/apiService";
 import ChangeDifficulty from "./ChangeDifficulty";
 
 type IndexCardFormProps = {
@@ -53,9 +51,6 @@ export default function EditIndexCard({indexCard}: IndexCardFormProps) {
     }
 
     return (<div id={"editIndexCard"}>
-            <ThemeProvider theme={cardTheme}>
-                <Card>
-                    <CardContent>
                         <form onSubmit={submitIndexCard}>
                             <div id={"topRow"}>
                                 <TextField value={term1}
@@ -72,10 +67,6 @@ export default function EditIndexCard({indexCard}: IndexCardFormProps) {
                                 </Fab>
                             </div>
                         </form>
-                        {indexCard && <Button onClick={() => deleteIndexCard(indexCard.id)}>Delete</Button>}
-                    </CardContent>
-                </Card>
-            </ThemeProvider>
         </div>
     )
 }

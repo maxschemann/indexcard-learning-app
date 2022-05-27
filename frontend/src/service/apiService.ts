@@ -8,7 +8,7 @@ export const postIndexCard: (indexCardDto: Omit<IndexCard, "id">) => Promise<Ind
         .then(response => response.data)
 }
 
-export const getAllIndexCards = () => {
+export const getAllIndexCards: () => Promise<IndexCard[]> = () => {
     return axios.get(url)
         .then(response => response.data)
 }
@@ -18,8 +18,7 @@ export const putIndexCard = (id: string, indexCardDto: Omit<IndexCard, "id">) =>
         .then(response => response.data)
 }
 
-export const deleteIndexCard = (id: string) => {
+export const deleteIndexCard: (id: string) => Promise<void> = (id) => {
     return axios.delete(url + id)
-        .then(response => response.data)
 }
 

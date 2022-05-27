@@ -7,12 +7,6 @@ export default function useIndexCard() {
 
     const [indexCards, setIndexCards] = useState<IndexCard[]>([])
 
-    useEffect(() => {
-        getAllIndexCards()
-            .then(response => setIndexCards(response))
-            .catch(() => toast.error("Unable to fetch index cards!"))
-    }, [])
-
     const addNewIndexCard: (newIndexCard: Omit<IndexCard, "id">) => void = (newIndexCard) => {
         postIndexCard(newIndexCard)
             .then(addedIndexCard => setIndexCards([...indexCards, addedIndexCard]))
@@ -32,9 +26,19 @@ export default function useIndexCard() {
         deleteIndexCard(id)
             .then(() => setIndexCards(
                 indexCards.filter(card => card.id !== id)))
+            .then(()=> {console.log(id)
+            console.log(indexCards)})
             .then(() => toast.success("Index card deleted!"))
             .catch(() => toast.error("Failed to delete!"))
     }
+
+    useEffect(() => {
+        getAllIndexCards()
+            .then(response => setIndexCards(response))
+            .then(()=>{console.log("UE")
+            console.log(indexCards)})
+            .catch(() => toast.error("Unable to fetch index cards!"))
+    }, [])
 
     return {indexCards, setIndexCards, addNewIndexCard, updateIndexCard, removeIndexCard}
 }
