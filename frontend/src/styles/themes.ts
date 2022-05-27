@@ -23,5 +23,23 @@ export const cardTheme = createTheme({
                 },
             },
         },
+        MuiContainer: {
+            styleOverrides: {
+                root: {
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                },
+            },
+        },
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    display: "flex",
+                    justifyContent: "right",
+                    padding: "10px",
+                },
+            },
+        },
     },
 })

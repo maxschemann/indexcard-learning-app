@@ -1,11 +1,15 @@
 #indexCard {
     display: flex;
     justify-content: center;
-    padding: 20px;
+    padding: 5px;
 }
 
 #topRow {
     display: flex;
     justify-content: center;
     padding: 20px;
+}
+
+{
+
 }

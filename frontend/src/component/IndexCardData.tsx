@@ -1,4 +1,4 @@
-import {Box, Typography} from "@mui/material";
+import {Box, Container, TextField, Typography} from "@mui/material";
 import {IndexCard} from "../model/IndexCard";
 
 type IndexCardDataProps = {
@@ -8,16 +8,14 @@ type IndexCardDataProps = {
 export default function IndexCardData({indexCard}: IndexCardDataProps) {
 
     return (
-        <div id={"topRow"}>
+        <Container>
             <Box>
-                <Typography>{indexCard.term1}</Typography>
+                <TextField disabled={true} value={indexCard.term1}/>
+                <TextField disabled={true} value={indexCard.term2}/>
             </Box>
-            <Box>
-                <Typography>{indexCard.term2}</Typography>
-            </Box>
-            <Box>
+            <Box padding={"10px"}>
                 <Typography>{indexCard.difficulty}</Typography>
             </Box>
-        </div>
+        </Container>
     )
 }
