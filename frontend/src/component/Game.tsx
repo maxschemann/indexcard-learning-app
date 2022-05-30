@@ -6,7 +6,7 @@ type GameProps = {
     indexCards: IndexCard[]
 }
 
-export default function Game({indexCards}:GameProps) {
+export default function Game({indexCards}: GameProps) {
 
     const [translation, setTranslation] = useState<string>("")
 
@@ -17,9 +17,9 @@ export default function Game({indexCards}:GameProps) {
     const randomIndexArray = () => {
         const indexArray: number[] = []
         let counter = 0
-        while (counter<indexCards.length) {
+        while (counter < indexCards.length) {
             const rdmIndex = Math.floor(Math.random() * indexCards.length)
-            if (indexArray.indexOf(rdmIndex)=== -1) {
+            if (indexArray.indexOf(rdmIndex) === -1) {
                 indexArray.push(rdmIndex)
                 counter++
             }
@@ -30,7 +30,10 @@ export default function Game({indexCards}:GameProps) {
     return (
         <div>
             {
-                reorderCards().map(card => <IndexCardData indexCard={card} gameMode={true} translation={translation} setTranslation={setTranslation}/>)
+                reorderCards().map(card => <IndexCardData indexCard={card}
+                                                          gameMode={true}
+                                                          translation={translation}
+                                                          setTranslation={setTranslation}/>)
             }
             <div>{translation}</div>
         </div>
