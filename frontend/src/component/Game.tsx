@@ -1,5 +1,6 @@
 import {IndexCard} from "../model/IndexCard";
 import IndexCardData from "./IndexCardData";
+import {useEffect, useState} from "react";
 
 type GameProps = {
     indexCards: IndexCard[]
@@ -7,8 +8,9 @@ type GameProps = {
 
 export default function Game({indexCards}:GameProps) {
 
+    const [translation, setTranslation] = useState<string>("")
+
     const reorderCards = () => {
-        console.log(randomIndexArray().map(index => indexCards[index]))
         return randomIndexArray().map(index => indexCards[index])
     }
 
@@ -22,16 +24,15 @@ export default function Game({indexCards}:GameProps) {
                 counter++
             }
         }
-        console.log(indexArray)
         return indexArray
     }
-
 
     return (
         <div>
             {
-                reorderCards().map(card => <IndexCardData indexCard={card} gameMode={true}/>)
+                reorderCards().map(card => <IndexCardData indexCard={card} gameMode={true} translation={translation} setTranslation={setTranslation}/>)
             }
+            <div>{translation}</div>
         </div>
     )
 }

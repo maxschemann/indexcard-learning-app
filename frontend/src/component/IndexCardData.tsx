@@ -3,23 +3,26 @@ import {IndexCard} from "../model/IndexCard";
 
 type IndexCardDataProps = {
     indexCard: IndexCard,
-    gameMode: boolean
+    gameMode: boolean,
+    translation?: string,
+    setTranslation?: (updatedTranslation: string) => void
 }
 
-export default function IndexCardData({indexCard, gameMode}: IndexCardDataProps) {
+export default function IndexCardData({indexCard, gameMode, translation, setTranslation}: IndexCardDataProps) {
 
     const renderTextFields = () => {
         return (
             <Box>
                 <TextField disabled={true} value={indexCard.term1}/>
-                <TextField disabled={!gameMode} value={!gameMode ? indexCard.term2 : "Enter the translation..."}/>
+                <TextField disabled={!gameMode}
+                           value={!gameMode ? indexCard.term2 : translation}  placeholder={"Enter the translation..."}
+                           onChange={setTranslation && ((event) => setTranslation(event.target.value))}/>
             </Box>
         )
     }
 
-    return (
-        <Container>
-            {renderTextFields()}
+    return (<Container>
+           {renderTextFields()}
             <Box padding={"10px"}>
                 <Typography>{indexCard.difficulty}</Typography>
             </Box>

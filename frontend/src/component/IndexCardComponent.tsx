@@ -28,7 +28,6 @@ export default function IndexCardComponent({indexCard}: IndexCardProps) {
                     <CardContent>
                         {indexCard && <Button onClick={() => {
                             removeIndexCard(indexCard.id)
-
                         }}>
                             Delete</Button>}
                         {edit ? <div>
