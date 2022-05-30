@@ -11,22 +11,18 @@ type ChangeDifficultyProps = {
 
 export default function ChangeDifficulty({setDifficulty}: ChangeDifficultyProps) {
 
-    const selectDifficulty = (difficultyOption: number) => {
-        setDifficulty(difficultyOption)
-    }
-
     return (
         <ButtonGroup>
             <Button sx={{backgroundColor: '#07bc0c'}}
-                    onClick={() => selectDifficulty(0)}>
+                    onClick={() => setDifficulty(0)}>
                 <SentimentSatisfiedAltIcon/>
             </Button>
             <Button sx={{backgroundColor: '#f1c40f'}}
-                    onClick={() => selectDifficulty(1)}>
+                    onClick={() => setDifficulty(1)}>
                 <SentimentSatisfiedIcon/>
             </Button>
             <Button sx={{backgroundColor: '#e74c3c'}}
-                    onClick={() => selectDifficulty(2)}>
+                    onClick={() => setDifficulty(2)}>
                 <SentimentDissatisfiedIcon/>
             </Button>
         </ButtonGroup>

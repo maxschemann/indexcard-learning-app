@@ -6,16 +6,19 @@ import Header from "./component/Header";
 import IndexCardOverview from "./component/IndexCardOverview";
 import {Route, Routes} from 'react-router-dom';
 import EditIndexCard from "./component/EditIndexCard";
+import useIndexCard from "./hook/useIndexCard";
 
 function App() {
 
+    const {indexCards, setIndexCards} = useIndexCard()
+
     return (
         <div id={"app"}>
-            <Header/>
+            <Header indexCards={indexCards} setIndexCards={setIndexCards}/>
             <ToastContainer/>
             <Routes>
                 <Route path="/"
-                       element={<IndexCardOverview/>}/>
+                       element={<IndexCardOverview indexCards={indexCards}/>}/>
                 <Route path="/add"
                        element={<EditIndexCard/>}/>
             </Routes>

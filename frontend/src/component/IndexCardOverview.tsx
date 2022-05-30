@@ -1,18 +1,16 @@
 import IndexCardComponent from "./IndexCardComponent";
-import useIndexCard from "../hook/useIndexCard";
-import EditIndexCard from "./EditIndexCard";
 import React from "react";
-import SearchIndexCard from "./SearchIndexCard";
+import {IndexCard} from "../model/IndexCard";
 
-export default function IndexCardOverview() {
+type IndexCardOverviewProps = {
+    indexCards: IndexCard[],
+}
 
-    const {indexCards, setIndexCards} = useIndexCard()
+export default function IndexCardOverview({indexCards}: IndexCardOverviewProps) {
 
     return (
         <div>
-            <SearchIndexCard indexCards={indexCards} setIndexCards={setIndexCards} />
             {indexCards.map(card => <IndexCardComponent indexCard={card}/>)}
-            <EditIndexCard/>
         </div>
     )
 }
