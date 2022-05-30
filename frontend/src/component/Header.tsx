@@ -19,5 +19,6 @@ export default function Header({indexCards, setIndexCards}: HeaderProps) {
         <Button onClick={() => navigate("/add")}>Add</Button>
         <SortIndexCards indexCards={indexCards} setIndexCards={setIndexCards}/>
         <SearchIndexCard indexCards={indexCards} setIndexCards={setIndexCards}/>
+        <Button onClick={() => navigate("/game")}>Game</Button>
     </div>
 }
