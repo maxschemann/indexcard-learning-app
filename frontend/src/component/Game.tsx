@@ -1,6 +1,6 @@
 import {IndexCard} from "../model/IndexCard";
 import IndexCardData from "./IndexCardData";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 
 type GameProps = {
     indexCards: IndexCard[]
