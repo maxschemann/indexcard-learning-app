@@ -21,7 +21,6 @@ export default function GameOptions({indexCards, setIndexCards}: GameOptionsProp
             {
                 gameOn && <Game indexCards={indexCards}/>
             }
-
         </div>
     )
 }
