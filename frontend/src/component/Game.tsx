@@ -30,7 +30,7 @@ export default function Game({indexCards}:GameProps) {
     return (
         <div>
             {
-                reorderCards().map(card => <IndexCardData indexCard={card}/>)
+                reorderCards().map(card => <IndexCardData indexCard={card} gameMode={true}/>)
             }
         </div>
     )

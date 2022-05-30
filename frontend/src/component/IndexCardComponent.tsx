@@ -36,7 +36,7 @@ export default function IndexCardComponent({indexCard}: IndexCardProps) {
                                 <Button onClick={switchEdit}>Edit</Button>
                             </div>
                             : <div>
-                                <IndexCardData indexCard={indexCard}/>
+                                <IndexCardData indexCard={indexCard} gameMode={false}/>
                                 <Button onClick={switchEdit}>Edit</Button>
                             </div>}
                     </CardContent>
