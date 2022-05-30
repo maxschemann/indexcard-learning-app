@@ -13,7 +13,7 @@ export default function SearchIndexCard({indexCards, setIndexCards}: SearchIndex
 
     useEffect(() => {
         setIndexCards(indexCards.filter(card => card.term1.includes(searchTerm) || card.term2.includes(searchTerm)))
-    }, [searchTerm])
+    }, [searchTerm, indexCards, setIndexCards])
 
     return (
         <TextField placeholder={"Enter a search term..."}
