@@ -8,12 +8,18 @@ type IndexCardDataProps = {
 
 export default function IndexCardData({indexCard, gameMode}: IndexCardDataProps) {
 
-    return (
-        <Container>
+    const renderTextFields = () => {
+        return (
             <Box>
                 <TextField disabled={true} value={indexCard.term1}/>
                 <TextField disabled={!gameMode} value={!gameMode ? indexCard.term2 : "Enter the translation..."}/>
             </Box>
+        )
+    }
+
+    return (
+        <Container>
+            {renderTextFields()}
             <Box padding={"10px"}>
                 <Typography>{indexCard.difficulty}</Typography>
             </Box>
