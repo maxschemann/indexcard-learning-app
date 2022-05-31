@@ -5,17 +5,17 @@ import IndexCardData from "./IndexCardData";
 import EditIndexCard from "./EditIndexCard";
 import {useState} from "react";
 import {cardTheme} from "../styles/themes";
-import useIndexCard from "../hook/useIndexCard";
 
 type IndexCardProps = {
     indexCard: IndexCard
+    removeIndexCard: (id: string) => void
+    addNewIndexCard: (indexCard: Omit <IndexCard, "id">) => void,
+    updateIndexCard: (id: string, indexCard: Omit<IndexCard, "id">) => void
 }
 
-export default function IndexCardComponent({indexCard}: IndexCardProps) {
+export default function IndexCardComponent({indexCard, removeIndexCard, addNewIndexCard, updateIndexCard}: IndexCardProps) {
 
     const [edit, setEdit] = useState<boolean>(false)
-
-    const {removeIndexCard} = useIndexCard()
 
     const switchEdit = () => {
         setEdit(!edit)
@@ -31,11 +31,15 @@ export default function IndexCardComponent({indexCard}: IndexCardProps) {
                         }}>
                             Delete</Button>}
                         {edit ? <div>
-                                <EditIndexCard indexCard={indexCard}/>
+                                <EditIndexCard indexCard={indexCard}
+                                               addNewIndexCard={addNewIndexCard}
+                                               updateIndexCard={updateIndexCard}
+                                />
                                 <Button onClick={switchEdit}>Edit</Button>
                             </div>
                             : <div>
-                                <IndexCardData indexCard={indexCard} gameMode={false}/>
+                                <IndexCardData indexCard={indexCard}
+                                               gameMode={false}/>
                                 <Button onClick={switchEdit}>Edit</Button>
                             </div>}
                     </CardContent>

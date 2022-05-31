@@ -3,21 +3,20 @@ import AddIcon from "@mui/icons-material/Add";
 import {FormEvent, useState} from "react";
 import {toast} from "react-toastify";
 import {Difficulty, IndexCard} from "../model/IndexCard";
-import useIndexCard from "../hook/useIndexCard";
 import '../styles/EditIndexCard.css';
 import ChangeDifficulty from "./ChangeDifficulty";
 
 type IndexCardFormProps = {
-    indexCard?: IndexCard
+    indexCard?: IndexCard,
+    addNewIndexCard: (indexCard: Omit <IndexCard, "id">) => void,
+    updateIndexCard?: (id: string, indexCard: Omit<IndexCard, "id">) => void
 }
 
-export default function EditIndexCard({indexCard}: IndexCardFormProps) {
+export default function EditIndexCard({indexCard, addNewIndexCard, updateIndexCard}: IndexCardFormProps) {
 
     const [term1, setTerm1] = useState(indexCard ? indexCard.term1 : "")
     const [term2, setTerm2] = useState(indexCard ? indexCard.term2 : "")
     const [difficulty, setDifficulty] = useState<Difficulty>(indexCard ? indexCard.difficulty : Difficulty.HARD)
-
-    const {addNewIndexCard, updateIndexCard} = useIndexCard()
 
     const submitIndexCard = (event: FormEvent) => {
         event.preventDefault()
@@ -34,7 +33,7 @@ export default function EditIndexCard({indexCard}: IndexCardFormProps) {
             addNewIndexCard(newIndexCardDto)
         } else {
             const newIndexCardDto = createNewIndexCardDto()
-            updateIndexCard(indexCard.id, newIndexCardDto)
+            updateIndexCard && updateIndexCard(indexCard.id, newIndexCardDto)
         }
     }
 
