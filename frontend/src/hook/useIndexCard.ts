@@ -30,11 +30,16 @@ export default function useIndexCard() {
             .catch(() => toast.error("Failed to delete!"))
     }
 
+    const fetchAllIndexCards = () => {
+        getAllIndexCards()
+            .then(response => setIndexCards(response))
+    }
+
     useEffect(() => {
         getAllIndexCards()
             .then(response => setIndexCards(response))
             .catch(() => toast.error("Unable to fetch index cards!"))
     }, [])
 
-    return {indexCards, setIndexCards, addNewIndexCard, updateIndexCard, removeIndexCard}
+    return {indexCards, setIndexCards, addNewIndexCard, updateIndexCard, removeIndexCard, fetchAllIndexCards}
 }

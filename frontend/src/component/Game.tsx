@@ -33,7 +33,8 @@ export default function Game({indexCards}: GameProps) {
                 reorderCards().map(card => <IndexCardData indexCard={card}
                                                           gameMode={true}
                                                           translation={translation}
-                                                          setTranslation={setTranslation}/>)
+                                                          setTranslation={setTranslation}
+                                                          key={card.id}/>)
             }
             <div>{translation}</div>
         </div>

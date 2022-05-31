@@ -22,6 +22,7 @@ export default function IndexCardOverview({
                                                         removeIndexCard={removeIndexCard}
                                                         addNewIndexCard={addNewIndexCard}
                                                         updateIndexCard={updateIndexCard}
+                                                        key={card.id}
             />)}
         </div>
     )

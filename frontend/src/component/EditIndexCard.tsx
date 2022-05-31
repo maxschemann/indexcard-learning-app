@@ -1,4 +1,4 @@
-import {Fab, TextField} from "@mui/material";
+import {Button, Fab, TextField} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import {FormEvent, useState} from "react";
 import {toast} from "react-toastify";
@@ -9,10 +9,11 @@ import ChangeDifficulty from "./ChangeDifficulty";
 type IndexCardFormProps = {
     indexCard?: IndexCard,
     addNewIndexCard: (indexCard: Omit<IndexCard, "id">) => void,
-    updateIndexCard?: (id: string, indexCard: Omit<IndexCard, "id">) => void
+    updateIndexCard?: (id: string, indexCard: Omit<IndexCard, "id">) => void,
+    removeIndexCard?: (id: string) => void
 }
 
-export default function EditIndexCard({indexCard, addNewIndexCard, updateIndexCard}: IndexCardFormProps) {
+export default function EditIndexCard({indexCard, addNewIndexCard, updateIndexCard, removeIndexCard}: IndexCardFormProps) {
 
     const [term1, setTerm1] = useState(indexCard ? indexCard.term1 : "")
     const [term2, setTerm2] = useState(indexCard ? indexCard.term2 : "")
@@ -50,6 +51,10 @@ export default function EditIndexCard({indexCard, addNewIndexCard, updateIndexCa
     }
 
     return (<div id={"editIndexCard"}>
+            {removeIndexCard && indexCard && <Button onClick={() => {
+                removeIndexCard(indexCard.id)
+            }}>
+                Delete</Button>}
             <form onSubmit={submitIndexCard}>
                 <div id={"topRow"}>
                     <TextField value={term1}
