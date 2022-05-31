@@ -11,19 +11,25 @@ import GameOptions from "./component/GameOptions";
 
 function App() {
 
-    const {indexCards, setIndexCards} = useIndexCard()
+    const {indexCards, setIndexCards, addNewIndexCard, updateIndexCard, removeIndexCard} = useIndexCard()
 
     return (
         <div id={"app"}>
-            <Header indexCards={indexCards} setIndexCards={setIndexCards}/>
+            <Header indexCards={indexCards}
+                    setIndexCards={setIndexCards}/>
             <ToastContainer/>
             <Routes>
                 <Route path="/"
-                       element={<IndexCardOverview indexCards={indexCards}/>}/>
+                       element={<IndexCardOverview indexCards={indexCards}
+                                                   removeIndexCard={removeIndexCard}
+                                                   addNewIndexCard={addNewIndexCard}
+                                                   updateIndexCard={updateIndexCard}
+                       />}/>
                 <Route path="/add"
-                       element={<EditIndexCard/>}/>
+                       element={<EditIndexCard addNewIndexCard={addNewIndexCard}/>}/>
                 <Route path="/game"
-                       element={<GameOptions indexCards={indexCards} setIndexCards={setIndexCards}/>}/>
+                       element={<GameOptions indexCards={indexCards}
+                                             setIndexCards={setIndexCards}/>}/>
             </Routes>
         </div>
     );
