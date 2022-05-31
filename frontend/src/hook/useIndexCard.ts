@@ -19,7 +19,7 @@ export default function useIndexCard() {
             .then(updatedCard => setIndexCards(
                 indexCards.map(card => card.id === id? updatedCard : card)))
             .then(() => toast.success("Index card updated!"))
-            .catch(() => toast.error("Failed to add!"))
+            .catch(() => toast.error("Failed to update!"))
     }
 
     const removeIndexCard = (id: string) => {
@@ -30,16 +30,11 @@ export default function useIndexCard() {
             .catch(() => toast.error("Failed to delete!"))
     }
 
-    const fetchAllIndexCards = () => {
-        getAllIndexCards()
-            .then(response => setIndexCards(response))
-    }
-
     useEffect(() => {
         getAllIndexCards()
             .then(response => setIndexCards(response))
             .catch(() => toast.error("Unable to fetch index cards!"))
     }, [])
 
-    return {indexCards, setIndexCards, addNewIndexCard, updateIndexCard, removeIndexCard, fetchAllIndexCards}
+    return {indexCards, setIndexCards, addNewIndexCard, updateIndexCard, removeIndexCard}
 }
