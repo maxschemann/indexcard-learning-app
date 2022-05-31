@@ -16,6 +16,8 @@ export default function SortIndexCards({setIndexCards}: SortIndexCardsProps) {
 
     return (
         <Select placeholder={"Select Difficulty"}>
+            <MenuItem onClick={() => getAllIndexCards()
+                .then(response => setIndexCards(response))}>All</MenuItem>
             <MenuItem onClick={() => sortByDifficulty(0)}>Easy</MenuItem>
             <MenuItem onClick={() => sortByDifficulty(1)}>Medium</MenuItem>
             <MenuItem onClick={() => sortByDifficulty(2)}>Hard</MenuItem>

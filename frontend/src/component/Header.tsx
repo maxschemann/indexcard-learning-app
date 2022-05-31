@@ -7,18 +7,17 @@ import React from "react";
 import {IndexCard} from "../model/IndexCard";
 
 type HeaderProps = {
-    indexCards: IndexCard[],
     setIndexCards: (indexCards: IndexCard[]) => void
 }
 
-export default function Header({indexCards, setIndexCards}: HeaderProps) {
+export default function Header({setIndexCards}: HeaderProps) {
 
     const navigate = useNavigate()
 
     return <div id={"header"}>
         <Button onClick={() => navigate("/add")}>Add</Button>
         <SortIndexCards setIndexCards={setIndexCards}/>
-        <SearchIndexCard indexCards={indexCards} setIndexCards={setIndexCards}/>
+        <SearchIndexCard setIndexCards={setIndexCards}/>
         <Button onClick={() => navigate("/game")}>Game</Button>
     </div>
 }

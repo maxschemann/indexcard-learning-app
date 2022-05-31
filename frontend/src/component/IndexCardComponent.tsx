@@ -31,14 +31,11 @@ export default function IndexCardComponent({
             <ThemeProvider theme={cardTheme}>
                 <Card>
                     <CardContent>
-                        {indexCard && <Button onClick={() => {
-                            removeIndexCard(indexCard.id)
-                        }}>
-                            Delete</Button>}
                         {edit ? <div>
                                 <EditIndexCard indexCard={indexCard}
                                                addNewIndexCard={addNewIndexCard}
                                                updateIndexCard={updateIndexCard}
+                                               removeIndexCard={removeIndexCard}
                                 />
                                 <Button onClick={switchEdit}>Edit</Button>
                             </div>

@@ -15,8 +15,7 @@ function App() {
 
     return (
         <div id={"app"}>
-            <Header indexCards={indexCards}
-                    setIndexCards={setIndexCards}/>
+            <Header setIndexCards={setIndexCards}/>
             <ToastContainer/>
             <Routes>
                 <Route path="/"
