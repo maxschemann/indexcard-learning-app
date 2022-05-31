@@ -17,7 +17,7 @@ export default function Header({indexCards, setIndexCards}: HeaderProps) {
 
     return <div id={"header"}>
         <Button onClick={() => navigate("/add")}>Add</Button>
-        <SortIndexCards indexCards={indexCards} setIndexCards={setIndexCards}/>
+        <SortIndexCards setIndexCards={setIndexCards}/>
         <SearchIndexCard indexCards={indexCards} setIndexCards={setIndexCards}/>
         <Button onClick={() => navigate("/game")}>Game</Button>
     </div>

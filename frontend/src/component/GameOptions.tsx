@@ -16,7 +16,7 @@ export default function GameOptions({indexCards, setIndexCards}: GameOptionsProp
     return (
         <div>
             <Typography>Select difficulty</Typography>
-            <SortIndexCards indexCards={indexCards} setIndexCards={setIndexCards}/>
+            <SortIndexCards setIndexCards={setIndexCards}/>
             <Button onClick={() => setGameOn(!gameOn)}>Start game</Button>
             {
                 gameOn && <Game indexCards={indexCards}/>
