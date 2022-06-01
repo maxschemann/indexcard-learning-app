@@ -1,23 +1,23 @@
-import {Fab, TextField} from "@mui/material";
+import {Button, Fab, TextField} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import {FormEvent, useState} from "react";
 import {toast} from "react-toastify";
 import {Difficulty, IndexCard} from "../model/IndexCard";
-import useIndexCard from "../hook/useIndexCard";
 import '../styles/EditIndexCard.css';
 import ChangeDifficulty from "./ChangeDifficulty";
 
 type IndexCardFormProps = {
-    indexCard?: IndexCard
+    indexCard?: IndexCard,
+    addNewIndexCard: (indexCard: Omit<IndexCard, "id">) => void,
+    updateIndexCard?: (id: string, indexCard: Omit<IndexCard, "id">) => void,
+    removeIndexCard?: (id: string) => void
 }
 
-export default function EditIndexCard({indexCard}: IndexCardFormProps) {
+export default function EditIndexCard({indexCard, addNewIndexCard, updateIndexCard, removeIndexCard}: IndexCardFormProps) {
 
     const [term1, setTerm1] = useState(indexCard ? indexCard.term1 : "")
     const [term2, setTerm2] = useState(indexCard ? indexCard.term2 : "")
     const [difficulty, setDifficulty] = useState<Difficulty>(indexCard ? indexCard.difficulty : Difficulty.HARD)
-
-    const {addNewIndexCard, updateIndexCard} = useIndexCard()
 
     const submitIndexCard = (event: FormEvent) => {
         event.preventDefault()
@@ -34,7 +34,7 @@ export default function EditIndexCard({indexCard}: IndexCardFormProps) {
             addNewIndexCard(newIndexCardDto)
         } else {
             const newIndexCardDto = createNewIndexCardDto()
-            updateIndexCard(indexCard.id, newIndexCardDto)
+            updateIndexCard && updateIndexCard(indexCard.id, newIndexCardDto)
         }
     }
 
@@ -51,22 +51,26 @@ export default function EditIndexCard({indexCard}: IndexCardFormProps) {
     }
 
     return (<div id={"editIndexCard"}>
-                        <form onSubmit={submitIndexCard}>
-                            <div id={"topRow"}>
-                                <TextField value={term1}
-                                           placeholder={"Enter a word..."}
-                                           onChange={event => updateTerm(1, event.target.value)}/>
-                                <TextField value={term2}
-                                           placeholder={"Enter a translation.."}
-                                           onChange={event => updateTerm(2, event.target.value)}/>
-                            </div>
-                            <div id={"bottomRow"}>
-                                <ChangeDifficulty setDifficulty={setDifficulty}/>
-                                <Fab type={"submit"}>
-                                    <AddIcon/>
-                                </Fab>
-                            </div>
-                        </form>
+            {removeIndexCard && indexCard && <Button onClick={() => {
+                removeIndexCard(indexCard.id)
+            }}>
+                Delete</Button>}
+            <form onSubmit={submitIndexCard}>
+                <div id={"topRow"}>
+                    <TextField value={term1}
+                               placeholder={"Enter a word..."}
+                               onChange={event => updateTerm(1, event.target.value)}/>
+                    <TextField value={term2}
+                               placeholder={"Enter a translation.."}
+                               onChange={event => updateTerm(2, event.target.value)}/>
+                </div>
+                <div id={"bottomRow"}>
+                    <ChangeDifficulty setDifficulty={setDifficulty}/>
+                    <Fab type={"submit"}>
+                        <AddIcon/>
+                    </Fab>
+                </div>
+            </form>
         </div>
     )
 }
