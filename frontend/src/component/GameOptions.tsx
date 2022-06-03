@@ -1,6 +1,6 @@
 import {IndexCard} from "../model/IndexCard";
 import SortIndexCards from "./SortIndexCards";
-import {Button, Typography} from "@mui/material";
+import {Button} from "@mui/material";
 import Game from "./Game";
 import {useState} from "react";
 
@@ -35,7 +35,6 @@ export default function GameOptions({indexCards, setIndexCards, updateIndexCard}
 
     return (
         <div>
-            {deck.map(c => <Typography>{c.term1}</Typography>)}
             <SortIndexCards setIndexCards={setIndexCards}/>
             <Button onClick={() => setGameOn(!gameOn)}>Start game</Button>
             {

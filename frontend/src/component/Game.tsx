@@ -1,6 +1,5 @@
 import {Difficulty, IndexCard} from "../model/IndexCard";
-import IndexCardData from "./IndexCardData";
-import {FormEvent, useState} from "react";
+import {useState} from "react";
 import {Fab, TextField} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 
@@ -17,68 +16,48 @@ export default function Game({deck, updateIndexCard}: GameProps) {
 
     const [nextCard, setNextCard] = useState<IndexCard>(deck[index])
 
-    const [difficulty, setDifficulty] = useState<Difficulty>(nextCard.difficulty)
+    const updateIndexCardDto = (diff: number) => {
+        let newDifficulty: Difficulty = Difficulty.MEDIUM
+        if (diff===0) newDifficulty = Difficulty.EASY
+        if (diff===1) newDifficulty = Difficulty.MEDIUM
+        if (diff===2) newDifficulty = Difficulty.HARD
+        const newDto = {
+            term1: nextCard.term1,
+            term2: nextCard.term2,
+            difficulty: newDifficulty
+        }
+        updateIndexCard(nextCard.id, newDto)
+    }
+
+    const reevaluateDifficulty = (upOrDown: number) => {
+        if (upOrDown === 1 && nextCard.difficulty.toString()===Difficulty[Difficulty.HARD]) {
+            updateIndexCardDto(1)
+        }
+        if (upOrDown === 1 && nextCard.difficulty.toString()===Difficulty[Difficulty.MEDIUM]) {
+            updateIndexCardDto(0)
+        }
+        if (upOrDown === 0 && nextCard.difficulty.toString()===Difficulty[Difficulty.MEDIUM]) {
+            updateIndexCardDto(2)
+        }
+        if (upOrDown === 0 && nextCard.difficulty.toString()===Difficulty[Difficulty.EASY]) {
+            updateIndexCardDto(1)
+        }
+    }
 
     const submitTranslation = () => {
 
         if (translation === nextCard.term2) {
-            console.log("correct")
             reevaluateDifficulty(1)
-            updateIndexCardDto()
             setIndex(index + 1)
             setNextCard(deck[index])
             setTranslation("")
-            setDifficulty(nextCard.difficulty)
-            console.log("Next Difff: "+ nextCard.difficulty)
         }
         else {
-            console.log("wrong")
             reevaluateDifficulty(0)
-            updateIndexCardDto()
             setIndex(index + 1)
-            console.log("Next Index: "+ index)
             setNextCard(deck[index])
             setTranslation("")
-            setDifficulty(nextCard.difficulty)
-            console.log("Next Difff: "+ nextCard.difficulty)
         }
-    }
-
-    const updateIndexCardDto = () => {
-        const newDto = {
-            term1: nextCard.term1,
-            term2: nextCard.term2,
-            difficulty: difficulty
-        }
-        console.log(newDto.term1)
-        console.log(newDto.term2)
-        console.log(newDto.difficulty)
-    }
-
-    const reevaluateDifficulty = (upOrDown: number) => {
-        console.log("Reeval: "+nextCard.difficulty)
-        console.log("Reeval: "+nextCard.difficulty)
-        if (upOrDown === 1 && nextCard.difficulty.toString()===Difficulty[Difficulty.HARD]) {
-            console.log("1-Before: "+difficulty)
-            setDifficulty(1)
-            console.log("1-After: "+difficulty)
-        }
-        if (upOrDown === 1 && nextCard.difficulty.toString()===Difficulty[Difficulty.MEDIUM]) {
-            console.log("2-Before: "+difficulty)
-            setDifficulty(0)
-            console.log("2-After: "+difficulty)
-        }
-        if (upOrDown === 0 && nextCard.difficulty.toString()===Difficulty[Difficulty.MEDIUM]) {
-            console.log("3-Before: "+difficulty)
-            setDifficulty(2)
-            console.log("3-After: "+difficulty)
-        }
-        if (upOrDown === 0 && nextCard.difficulty.toString()===Difficulty[Difficulty.EASY]) {
-            console.log("4-Before: "+difficulty)
-            setDifficulty(1)
-            console.log("4-After: "+difficulty)
-        }
-        else console.log("Kaputt")
     }
 
     return (
