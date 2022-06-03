@@ -35,7 +35,7 @@ export default function GameOptions({indexCards, setIndexCards, updateIndexCard}
 
     return (
         <div>
-            <Typography>Select difficulty</Typography>
+            {deck.map(c => <Typography>{c.term1}</Typography>)}
             <SortIndexCards setIndexCards={setIndexCards}/>
             <Button onClick={() => setGameOn(!gameOn)}>Start game</Button>
             {

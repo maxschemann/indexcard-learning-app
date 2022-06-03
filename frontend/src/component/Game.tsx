@@ -22,45 +22,63 @@ export default function Game({deck, updateIndexCard}: GameProps) {
     const submitTranslation = () => {
 
         if (translation === nextCard.term2) {
-            console.log("up")
+            console.log("correct")
             reevaluateDifficulty(1)
-            updateIndexCard(nextCard.id, {...nextCard, difficulty: difficulty})
+            updateIndexCardDto()
             setIndex(index + 1)
             setNextCard(deck[index])
             setTranslation("")
-            console.log("Card after: "+nextCard.difficulty)
+            setDifficulty(nextCard.difficulty)
+            console.log("Next Difff: "+ nextCard.difficulty)
         }
         else {
-            console.log("down")
+            console.log("wrong")
             reevaluateDifficulty(0)
-            updateIndexCard(nextCard.id, {...nextCard, difficulty: difficulty})
+            updateIndexCardDto()
             setIndex(index + 1)
+            console.log("Next Index: "+ index)
             setNextCard(deck[index])
             setTranslation("")
-            console.log("Card after: "+nextCard.difficulty)
+            setDifficulty(nextCard.difficulty)
+            console.log("Next Difff: "+ nextCard.difficulty)
         }
     }
 
-    const reevaluateDifficulty = (upOrDown: number) => {
-        console.log("Diff before: "+nextCard.difficulty)
-        if (upOrDown === 1 && nextCard.toString()===Difficulty[Difficulty.HARD]) {
-            console.log("1")
-            setDifficulty(Difficulty.MEDIUM)
+    const updateIndexCardDto = () => {
+        const newDto = {
+            term1: nextCard.term1,
+            term2: nextCard.term2,
+            difficulty: difficulty
         }
-        if (upOrDown === 1 && nextCard.toString()===Difficulty[Difficulty.MEDIUM]) {
-            console.log("2")
-            setDifficulty(Difficulty.EASY)
+        console.log(newDto.term1)
+        console.log(newDto.term2)
+        console.log(newDto.difficulty)
+    }
+
+    const reevaluateDifficulty = (upOrDown: number) => {
+        console.log("Reeval: "+nextCard.difficulty)
+        console.log("Reeval: "+nextCard.difficulty)
+        if (upOrDown === 1 && nextCard.difficulty.toString()===Difficulty[Difficulty.HARD]) {
+            console.log("1-Before: "+difficulty)
+            setDifficulty(1)
+            console.log("1-After: "+difficulty)
+        }
+        if (upOrDown === 1 && nextCard.difficulty.toString()===Difficulty[Difficulty.MEDIUM]) {
+            console.log("2-Before: "+difficulty)
+            setDifficulty(0)
+            console.log("2-After: "+difficulty)
         }
         if (upOrDown === 0 && nextCard.difficulty.toString()===Difficulty[Difficulty.MEDIUM]) {
-            console.log("3")
-            setDifficulty(Difficulty.HARD)
+            console.log("3-Before: "+difficulty)
+            setDifficulty(2)
+            console.log("3-After: "+difficulty)
         }
         if (upOrDown === 0 && nextCard.difficulty.toString()===Difficulty[Difficulty.EASY]) {
-            console.log("4")
-            setDifficulty(Difficulty.MEDIUM)
+            console.log("4-Before: "+difficulty)
+            setDifficulty(1)
+            console.log("4-After: "+difficulty)
         }
-
-        console.log("Diff after: "+nextCard.difficulty)
+        else console.log("Kaputt")
     }
 
     return (
