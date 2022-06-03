@@ -6,37 +6,36 @@ import AddIcon from "@mui/icons-material/Add";
 
 type GameProps = {
     deck: IndexCard[],
+    updateIndexCard: (id: string, indexCard: Omit<IndexCard, "id">) => void
 }
 
-export default function Game({deck}: GameProps) {
+export default function Game({deck, updateIndexCard}: GameProps) {
 
     const [translation, setTranslation] = useState<string>("")
 
     const [index, setIndex] = useState<number>(0)
 
-    let i = 0
-
     const [nextCard, setNextCard] = useState<IndexCard>(deck[index])
 
     const [difficulty, setDifficulty] = useState<Difficulty>(nextCard.difficulty)
 
-    const submitTranslation = (event: FormEvent<HTMLFormElement>) => {
+    const submitTranslation = () => {
 
         if (translation === nextCard.term2) {
             console.log("up")
             reevaluateDifficulty(1)
-            //updateIndexCard(nextCard.id, {...nextCard, difficulty: difficulty})
-            i += 1
-            setNextCard(deck[i])
+            updateIndexCard(nextCard.id, {...nextCard, difficulty: difficulty})
+            setIndex(index + 1)
+            setNextCard(deck[index])
             setTranslation("")
             console.log("Card after: "+nextCard.difficulty)
         }
         else {
             console.log("down")
             reevaluateDifficulty(0)
-            //updateIndexCard(nextCard.id, {...nextCard, difficulty: difficulty})
-            i += 1
-            setNextCard(deck[i])
+            updateIndexCard(nextCard.id, {...nextCard, difficulty: difficulty})
+            setIndex(index + 1)
+            setNextCard(deck[index])
             setTranslation("")
             console.log("Card after: "+nextCard.difficulty)
         }
@@ -67,14 +66,14 @@ export default function Game({deck}: GameProps) {
     return (
         <div>
             {index <= deck.length ? (
-                    <form onSubmit={() => translation && submitTranslation}>
+                    <div>
                         <TextField value={nextCard.term1} disabled={true}/>
                         <TextField value={translation} placeholder={"Enter"} onChange={event => setTranslation(event.target.value)}/>
-                        <Fab type={"submit"}>
+                        <Fab onClick={submitTranslation}>
                             <AddIcon/>
                         </Fab>
-                        <div>{translation}</div>
-                    </form>
+
+                    </div>
                 )
                 :
                 (

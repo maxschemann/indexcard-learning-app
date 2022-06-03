@@ -40,7 +40,7 @@ export default function GameOptions({indexCards, setIndexCards, updateIndexCard}
             <Button onClick={() => setGameOn(!gameOn)}>Start game</Button>
             {
                 gameOn && <Game deck={deck}
-                                />
+                                updateIndexCard={updateIndexCard}/>
             }
         </div>
     )
