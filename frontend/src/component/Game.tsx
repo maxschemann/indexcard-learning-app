@@ -26,17 +26,16 @@ export default function Game({deck, updateIndexCard}: GameProps) {
         if (translation === nextCard.term2 && nextCard.difficulty.toString() === Difficulty[Difficulty.EASY]) {
             pickNextCard()
         }
-        if (translation === nextCard.term2 && nextCard.difficulty.toString() !== Difficulty[Difficulty.EASY]) {
+        if (translation !== nextCard.term2 && nextCard.difficulty.toString() === Difficulty[Difficulty.HARD]) {
+            pickNextCard()
+        }
+        if (translation === nextCard.term2) {
             const createDto = reevaluateDifficulty('DOWN')
-            createDto && updateIndexCard(nextCard.id, createDto)
+            updateIndexCard(nextCard.id, createDto)
             pickNextCard()
-        }
-        if (translation !== nextCard.term2 && nextCard.difficulty.toString() === Difficulty[Difficulty.HARD]) {
-            pickNextCard()
-        }
-        if (translation !== nextCard.term2 && nextCard.difficulty.toString() === Difficulty[Difficulty.HARD]) {
+        } else {
             const createDto = reevaluateDifficulty('UP')
-            createDto && updateIndexCard(nextCard.id, createDto)
+            updateIndexCard(nextCard.id, createDto)
             pickNextCard()
         }
     }
@@ -53,12 +52,13 @@ export default function Game({deck, updateIndexCard}: GameProps) {
         }
         if (upOrDown === 'UP' && nextCard.difficulty.toString() === Difficulty[Difficulty.EASY]) {
             return createIndexCardDto(1)
-        }
+        } else return createIndexCardDto(-1)
     }
 
     const createIndexCardDto = (diff: number) => {
         let newDifficulty: Difficulty = Difficulty.MEDIUM
 
+        if (diff === -1) newDifficulty = nextCard.difficulty
         if (diff === 0) newDifficulty = Difficulty.EASY
         if (diff === 1) newDifficulty = Difficulty.MEDIUM
         if (diff === 2) newDifficulty = Difficulty.HARD
