@@ -31,6 +31,7 @@ export default function useIndexCard() {
     }
 
     useEffect(() => {
+        console.log("UE")
         getAllIndexCards()
             .then(response => setIndexCards(response))
             .catch(() => toast.error("Unable to fetch index cards!"))

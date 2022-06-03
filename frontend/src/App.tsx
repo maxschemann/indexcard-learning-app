@@ -28,7 +28,8 @@ function App() {
                        element={<EditIndexCard addNewIndexCard={addNewIndexCard}/>}/>
                 <Route path="/game"
                        element={<GameOptions indexCards={indexCards}
-                                             setIndexCards={setIndexCards}/>}/>
+                                             setIndexCards={setIndexCards}
+                                             updateIndexCard={updateIndexCard}/>}/>
             </Routes>
         </div>
     );

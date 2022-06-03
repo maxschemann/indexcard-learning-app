@@ -42,7 +42,7 @@ export default function EditIndexCard({indexCard, addNewIndexCard, updateIndexCa
         return {
             term1: term1,
             term2: term2,
-            difficulty: difficulty
+            difficulty: difficulty,
         }
     }
 

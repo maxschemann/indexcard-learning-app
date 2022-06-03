@@ -6,12 +6,32 @@ import {useState} from "react";
 
 type GameOptionsProps = {
     indexCards: IndexCard[],
-    setIndexCards: (indexCards: IndexCard[]) => void
+    setIndexCards: (indexCards: IndexCard[]) => void,
+    updateIndexCard: (id: string, indexCard: Omit<IndexCard, "id">) => void
 }
 
-export default function GameOptions({indexCards, setIndexCards}: GameOptionsProps) {
+export default function GameOptions({indexCards, setIndexCards, updateIndexCard}: GameOptionsProps) {
 
     const [gameOn, setGameOn] = useState<boolean>(false)
+
+    const randomIndexArray = () => {
+        const indexArray: number[] = []
+        let counter = 0
+        while (counter < indexCards.length) {
+            const rdmIndex = Math.floor(Math.random() * indexCards.length)
+            if (indexArray.indexOf(rdmIndex) === -1) {
+                indexArray.push(rdmIndex)
+                counter++
+            }
+        }
+        return indexArray
+    }
+
+    const reorderCards = () => {
+        return randomIndexArray().map(randomIndex => indexCards[randomIndex])
+    }
+
+    const deck = reorderCards()
 
     return (
         <div>
@@ -19,7 +39,8 @@ export default function GameOptions({indexCards, setIndexCards}: GameOptionsProp
             <SortIndexCards setIndexCards={setIndexCards}/>
             <Button onClick={() => setGameOn(!gameOn)}>Start game</Button>
             {
-                gameOn && <Game indexCards={indexCards}/>
+                gameOn && <Game deck={deck}
+                                />
             }
         </div>
     )
