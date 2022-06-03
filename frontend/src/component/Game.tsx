@@ -16,47 +16,57 @@ export default function Game({deck, updateIndexCard}: GameProps) {
 
     const [nextCard, setNextCard] = useState<IndexCard>(deck[index])
 
-    const updateIndexCardDto = (diff: number) => {
-        let newDifficulty: Difficulty = Difficulty.MEDIUM
-        if (diff===0) newDifficulty = Difficulty.EASY
-        if (diff===1) newDifficulty = Difficulty.MEDIUM
-        if (diff===2) newDifficulty = Difficulty.HARD
-        const newDto = {
-            term1: nextCard.term1,
-            term2: nextCard.term2,
-            difficulty: newDifficulty
-        }
-        updateIndexCard(nextCard.id, newDto)
-    }
-
-    const reevaluateDifficulty = (upOrDown: number) => {
-        if (upOrDown === 1 && nextCard.difficulty.toString()===Difficulty[Difficulty.HARD]) {
-            updateIndexCardDto(1)
-        }
-        if (upOrDown === 1 && nextCard.difficulty.toString()===Difficulty[Difficulty.MEDIUM]) {
-            updateIndexCardDto(0)
-        }
-        if (upOrDown === 0 && nextCard.difficulty.toString()===Difficulty[Difficulty.MEDIUM]) {
-            updateIndexCardDto(2)
-        }
-        if (upOrDown === 0 && nextCard.difficulty.toString()===Difficulty[Difficulty.EASY]) {
-            updateIndexCardDto(1)
-        }
+    const pickNextCard = () => {
+        setIndex(index + 1)
+        setNextCard(deck[index])
+        setTranslation("")
     }
 
     const submitTranslation = () => {
-
-        if (translation === nextCard.term2) {
-            reevaluateDifficulty(1)
-            setIndex(index + 1)
-            setNextCard(deck[index])
-            setTranslation("")
+        if (translation === nextCard.term2 && nextCard.difficulty.toString() === Difficulty[Difficulty.EASY]) {
+            pickNextCard()
         }
-        else {
-            reevaluateDifficulty(0)
-            setIndex(index + 1)
-            setNextCard(deck[index])
-            setTranslation("")
+        if (translation === nextCard.term2 && nextCard.difficulty.toString() !== Difficulty[Difficulty.EASY]) {
+            const createDto = reevaluateDifficulty('DOWN')
+            createDto && updateIndexCard(nextCard.id, createDto)
+            pickNextCard()
+        }
+        if (translation !== nextCard.term2 && nextCard.difficulty.toString() === Difficulty[Difficulty.HARD]) {
+            pickNextCard()
+        }
+        if (translation !== nextCard.term2 && nextCard.difficulty.toString() === Difficulty[Difficulty.HARD]) {
+            const createDto = reevaluateDifficulty('UP')
+            createDto && updateIndexCard(nextCard.id, createDto)
+            pickNextCard()
+        }
+    }
+
+    const reevaluateDifficulty = (upOrDown: string) => {
+        if (upOrDown === 'DOWN' && nextCard.difficulty.toString() === Difficulty[Difficulty.HARD]) {
+            return createIndexCardDto(1)
+        }
+        if (upOrDown === 'DOWN' && nextCard.difficulty.toString() === Difficulty[Difficulty.MEDIUM]) {
+            return createIndexCardDto(0)
+        }
+        if (upOrDown === 'UP' && nextCard.difficulty.toString() === Difficulty[Difficulty.MEDIUM]) {
+            return createIndexCardDto(2)
+        }
+        if (upOrDown === 'UP' && nextCard.difficulty.toString() === Difficulty[Difficulty.EASY]) {
+            return createIndexCardDto(1)
+        }
+    }
+
+    const createIndexCardDto = (diff: number) => {
+        let newDifficulty: Difficulty = Difficulty.MEDIUM
+
+        if (diff === 0) newDifficulty = Difficulty.EASY
+        if (diff === 1) newDifficulty = Difficulty.MEDIUM
+        if (diff === 2) newDifficulty = Difficulty.HARD
+
+        return {
+            term1: nextCard.term1,
+            term2: nextCard.term2,
+            difficulty: newDifficulty
         }
     }
 
@@ -65,7 +75,8 @@ export default function Game({deck, updateIndexCard}: GameProps) {
             {index <= deck.length ? (
                     <div>
                         <TextField value={nextCard.term1} disabled={true}/>
-                        <TextField value={translation} placeholder={"Enter"} onChange={event => setTranslation(event.target.value)}/>
+                        <TextField value={translation} placeholder={"Enter"}
+                                   onChange={event => setTranslation(event.target.value)}/>
                         <Fab onClick={submitTranslation}>
                             <AddIcon/>
                         </Fab>
