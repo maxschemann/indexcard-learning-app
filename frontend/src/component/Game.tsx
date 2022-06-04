@@ -1,14 +1,15 @@
 import {Difficulty, IndexCard} from "../model/IndexCard";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Fab, TextField} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 
 type GameProps = {
     deck: IndexCard[],
-    updateIndexCard: (id: string, indexCard: Omit<IndexCard, "id">) => void
+    updateIndexCard: (id: string, indexCard: Omit<IndexCard, "id">) => void,
+    setDeck: (indexCards: IndexCard[]) => void
 }
 
-export default function Game({deck, updateIndexCard}: GameProps) {
+export default function Game({deck, updateIndexCard, setDeck}: GameProps) {
 
     const [translation, setTranslation] = useState<string>("")
 
@@ -16,24 +17,38 @@ export default function Game({deck, updateIndexCard}: GameProps) {
 
     const [nextCard, setNextCard] = useState<IndexCard>(deck[index])
 
+    useEffect(() => console.log(index), [index])
+
     const pickNextCard = () => {
         setIndex(index + 1)
+        console.log(deck.map(c => c.term1))
+        let previousCard = nextCard
         setNextCard(deck[index])
+        setDeck(deck.filter(card => card.id !== previousCard.id))
+        console.log(nextCard.term1)
         setTranslation("")
+    }
+
+    const getNextCard = (deckNext: IndexCard[]) => {
+        return deckNext.pop()
     }
 
     const submitTranslation = () => {
         if (translation === nextCard.term2 && nextCard.difficulty.toString() === Difficulty[Difficulty.EASY]) {
+            console.log("Correct and too easy")
             pickNextCard()
         }
         if (translation !== nextCard.term2 && nextCard.difficulty.toString() === Difficulty[Difficulty.HARD]) {
+            console.log("Not correct and hard")
             pickNextCard()
         }
         if (translation === nextCard.term2) {
+            console.log("Correct")
             const createDto = reevaluateDifficulty('DOWN')
             updateIndexCard(nextCard.id, createDto)
             pickNextCard()
         } else {
+            console.log("4")
             const createDto = reevaluateDifficulty('UP')
             updateIndexCard(nextCard.id, createDto)
             pickNextCard()
@@ -70,18 +85,23 @@ export default function Game({deck, updateIndexCard}: GameProps) {
         }
     }
 
+    const updateCard = () => {
+        return (
+            <div>
+                <TextField value={nextCard.term1} disabled={true}/>
+                <TextField value={translation} placeholder={"Enter"}
+                           onChange={event => setTranslation(event.target.value)}/>
+                <Fab onClick={submitTranslation}>
+                    <AddIcon/>
+                </Fab>
+            </div>
+        )
+    }
+
     return (
         <div>
-            {index <= deck.length ? (
-                    <div>
-                        <TextField value={nextCard.term1} disabled={true}/>
-                        <TextField value={translation} placeholder={"Enter"}
-                                   onChange={event => setTranslation(event.target.value)}/>
-                        <Fab onClick={submitTranslation}>
-                            <AddIcon/>
-                        </Fab>
-
-                    </div>
+            {deck.length > 0 ? (
+                    updateCard()
                 )
                 :
                 (
