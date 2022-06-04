@@ -60,7 +60,7 @@ export default function Game({deck, updateIndexCard}: GameProps) {
             {deck.length > 0 && nextCard ? (
                     <div>
                         <TextField value={nextCard.term1} disabled={true}/>
-                        <TextField value={translation} placeholder={"Enter"}
+                        <TextField value={translation} placeholder={"Enter a translation"}
                                    onChange={event => setTranslation(event.target.value)}/>
                         <Fab onClick={submitTranslation}>
                             <AddIcon/>
