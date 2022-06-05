@@ -1,9 +1,10 @@
 import '../styles/Header.css'
-import {Button} from "@mui/material";
+import {Button, Drawer, Fab} from "@mui/material";
+import MenuIcon from '@mui/icons-material/Menu';
 import {useNavigate} from "react-router-dom";
 import SortIndexCards from "./SortIndexCards";
 import SearchIndexCard from "./SearchIndexCard";
-import React from "react";
+import React, {useState} from "react";
 import {IndexCard} from "../model/IndexCard";
 
 type HeaderProps = {
@@ -12,12 +13,37 @@ type HeaderProps = {
 
 export default function Header({setIndexCards}: HeaderProps) {
 
+    const [displayMenu, setDisplayMenu] = useState<boolean>(false)
+
+    const [displaySorting, setDisplaySorting] = useState<boolean>(true)
+
     const navigate = useNavigate()
 
     return <div id={"header"}>
-        <Button onClick={() => navigate("/add")}>Add</Button>
-        <SortIndexCards setIndexCards={setIndexCards}/>
-        <SearchIndexCard setIndexCards={setIndexCards}/>
-        <Button onClick={() => navigate("/game")}>Game</Button>
+        <Fab onClick={() => setDisplayMenu(!displayMenu)}><MenuIcon/></Fab>
+        {
+            displayMenu &&
+            (<div>
+                <Drawer anchor={'top'} open={displayMenu} onClose={() => setDisplayMenu(false)}>
+                    <Button onClick={() => setDisplayMenu(false)}><MenuIcon/></Button>
+                    <Button onClick={() => {
+                        setDisplaySorting(true)
+                        navigate("/")
+                    }}>Overview</Button>
+                    <Button onClick={() => {
+                        setDisplaySorting(false)
+                        navigate("/add")
+                    }}>Add</Button>
+                    <SearchIndexCard setIndexCards={setIndexCards}/>
+                    <Button onClick={() => {
+                        setDisplaySorting(false)
+                        navigate("/game")
+                    }}>Game</Button>
+                </Drawer>
+            </div>)
+        }
+        {
+            displaySorting && <SortIndexCards setIndexCards={setIndexCards}/>
+        }
     </div>
 }
