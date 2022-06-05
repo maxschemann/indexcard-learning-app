@@ -1,11 +1,13 @@
-import '../styles/Header.css'
-import {Button, Drawer, Fab} from "@mui/material";
+import {Button, Drawer, Fab, ThemeProvider} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import {useNavigate} from "react-router-dom";
 import SortIndexCards from "./SortIndexCards";
 import SearchIndexCard from "./SearchIndexCard";
 import React, {useState} from "react";
 import {IndexCard} from "../model/IndexCard";
+import {headerTheme} from "../styles/headerTheme";
+import Box from "@mui/material/Box";
+import '../styles/Header.css'
 
 type HeaderProps = {
     setIndexCards: (indexCards: IndexCard[]) => void
@@ -19,31 +21,42 @@ export default function Header({setIndexCards}: HeaderProps) {
 
     const navigate = useNavigate()
 
-    return <div id={"header"}>
-        <Fab onClick={() => setDisplayMenu(!displayMenu)}><MenuIcon/></Fab>
-        {
-            displayMenu &&
-            (<div>
-                <Drawer anchor={'top'} open={displayMenu} onClose={() => setDisplayMenu(false)}>
-                    <Button onClick={() => setDisplayMenu(false)}><MenuIcon/></Button>
-                    <Button onClick={() => {
-                        setDisplaySorting(true)
-                        navigate("/")
-                    }}>Overview</Button>
-                    <Button onClick={() => {
-                        setDisplaySorting(false)
-                        navigate("/add")
-                    }}>Add</Button>
-                    <SearchIndexCard setIndexCards={setIndexCards}/>
-                    <Button onClick={() => {
-                        setDisplaySorting(false)
-                        navigate("/game")
-                    }}>Game</Button>
-                </Drawer>
-            </div>)
-        }
-        {
-            displaySorting && <SortIndexCards setIndexCards={setIndexCards}/>
-        }
-    </div>
+    return (
+        <ThemeProvider theme={headerTheme}>
+            <div id={'header'}>
+               <Box id={'menu'}>
+                   <Fab onClick={() => setDisplayMenu(!displayMenu)}><MenuIcon/></Fab>
+               </Box>
+                {
+                    displayMenu &&
+                    (<Box>
+                        <Drawer anchor={'top'} open={displayMenu} onClose={() => setDisplayMenu(false)}>
+                            <Button onClick={() => setDisplayMenu(false)}><MenuIcon/></Button>
+                            <Button onClick={() => {
+                                setDisplaySorting(true)
+                                navigate("/")
+                            }}>Overview</Button>
+                            <Button onClick={() => {
+                                setDisplaySorting(false)
+                                navigate("/add")
+                            }}>Add</Button>
+
+                            <Button onClick={() => {
+                                setDisplaySorting(false)
+                                navigate("/game")
+                            }}>Game</Button>
+                        </Drawer>
+                    </Box>)
+                }
+                <Box id={"options"}>
+                {
+                    displaySorting && <SortIndexCards setIndexCards={setIndexCards}/>
+                }
+                {
+                    displaySorting && <SearchIndexCard setIndexCards={setIndexCards}/>
+                }
+                </Box>
+            </div>
+        </ThemeProvider>
+    )
 }

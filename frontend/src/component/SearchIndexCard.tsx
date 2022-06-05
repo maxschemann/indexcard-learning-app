@@ -18,8 +18,7 @@ export default function SearchIndexCard({setIndexCards}: SearchIndexCardProps) {
     }, [searchTerm])
 
     return (
-        <TextField placeholder={"Enter a search term..."}
-                   value={searchTerm}
+        <TextField value={searchTerm}
                    onChange={(event) => setSearchTerm(event.target.value)}/>
     )
 }

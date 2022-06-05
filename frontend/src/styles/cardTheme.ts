@@ -19,7 +19,7 @@ export const cardTheme = createTheme({
             },
             styleOverrides: {
                 root: {
-                    marginLeft: '20px',
+                    marginLeft: '5px',
                 },
             },
         },
@@ -29,6 +29,7 @@ export const cardTheme = createTheme({
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
+                    justifyContent: 'start',
                 },
             },
         },

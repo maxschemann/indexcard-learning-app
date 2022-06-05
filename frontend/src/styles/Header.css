@@ -1,5 +1,8 @@
 #header {
-    height: 70px;
     display: flex;
-    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: #615f85;
+    height: 100px;
+    padding: 5px;
 }
