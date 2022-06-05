@@ -24,6 +24,46 @@ export default function Header({setIndexCards}: HeaderProps) {
     const backgroundLight = {
         backgroundColor: headerTheme.palette.primary.light
     }
+
+    const paths = ["", "/", "/add", "/game"]
+
+    const createMenuItems = () => {
+        return paths.map(path => {
+            let buttonFunction = pickButtonFunction(path)
+            let name = getName(path)
+            return name && createButton(path, name, buttonFunction)
+        })
+    }
+
+    const createButton = (path: string, name: string | JSX.Element, buttonFunction: () => void) => {
+        return (
+            <Button onClick={() => {
+                navigate(path)
+                setDisplayMenu(false)
+                buttonFunction()
+            }}
+                    key={path}>
+                {name}
+            </Button>
+        )
+    }
+
+    const pickButtonFunction = (path: string) => {
+        if (path === "/") return () => setDisplaySorting(true)
+        if (path === "") return () => {
+            setDisplayMenu(false)
+            setDisplaySorting(true)
+        }
+        else return () => setDisplaySorting(false)
+    }
+
+    const getName = (path: string) => {
+        if (path === "") return <MenuIcon/>
+        if (path === "/") return "Overview"
+        if (path === "/add") return "Add new index card"
+        if (path === "/game") return "Practice"
+    }
+
     return (
         <ThemeProvider theme={headerTheme}>
             <div id={'header'}>
@@ -34,24 +74,10 @@ export default function Header({setIndexCards}: HeaderProps) {
                 {
                     displayMenu &&
                     (<Box>
-                        <Drawer anchor={'top'} open={displayMenu} onClose={() => setDisplayMenu(false)}>
-                            <Button onClick={() => setDisplayMenu(false)}>
-                                <MenuIcon/></Button>
-                            <Button onClick={() => {
-                                setDisplaySorting(true)
-                                navigate("/")
-                            }}>
-                                Overview</Button>
-                            <Button onClick={() => {
-                                setDisplaySorting(false)
-                                navigate("/add")
-                            }}>
-                                Add</Button>
-                            <Button onClick={() => {
-                                setDisplaySorting(false)
-                                navigate("/game")
-                            }}>
-                                Game</Button>
+                        <Drawer anchor={'top'}
+                                open={displayMenu}
+                                onClose={() => setDisplayMenu(false)}>
+                            {createMenuItems()}
                         </Drawer>
                     </Box>)
                 }
