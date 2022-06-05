@@ -21,40 +21,47 @@ export default function Header({setIndexCards}: HeaderProps) {
 
     const navigate = useNavigate()
 
+    const backgroundLight = {
+        backgroundColor: headerTheme.palette.primary.light
+    }
     return (
         <ThemeProvider theme={headerTheme}>
             <div id={'header'}>
-               <Box id={'menu'}>
-                   <Fab onClick={() => setDisplayMenu(!displayMenu)}><MenuIcon/></Fab>
-               </Box>
+                <Box id={'menu'}>
+                    <Fab onClick={() => setDisplayMenu(!displayMenu)}
+                         sx={backgroundLight}><MenuIcon/></Fab>
+                </Box>
                 {
                     displayMenu &&
                     (<Box>
                         <Drawer anchor={'top'} open={displayMenu} onClose={() => setDisplayMenu(false)}>
-                            <Button onClick={() => setDisplayMenu(false)}><MenuIcon/></Button>
+                            <Button onClick={() => setDisplayMenu(false)}>
+                                <MenuIcon/></Button>
                             <Button onClick={() => {
                                 setDisplaySorting(true)
                                 navigate("/")
-                            }}>Overview</Button>
+                            }}>
+                                Overview</Button>
                             <Button onClick={() => {
                                 setDisplaySorting(false)
                                 navigate("/add")
-                            }}>Add</Button>
-
+                            }}>
+                                Add</Button>
                             <Button onClick={() => {
                                 setDisplaySorting(false)
                                 navigate("/game")
-                            }}>Game</Button>
+                            }}>
+                                Game</Button>
                         </Drawer>
                     </Box>)
                 }
                 <Box id={"options"}>
-                {
-                    displaySorting && <SortIndexCards setIndexCards={setIndexCards}/>
-                }
-                {
-                    displaySorting && <SearchIndexCard setIndexCards={setIndexCards}/>
-                }
+                    {
+                        displaySorting && <SortIndexCards setIndexCards={setIndexCards}/>
+                    }
+                    {
+                        displaySorting && <SearchIndexCard setIndexCards={setIndexCards}/>
+                    }
                 </Box>
             </div>
         </ThemeProvider>

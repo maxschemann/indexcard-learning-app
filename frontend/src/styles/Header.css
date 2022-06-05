@@ -6,3 +6,9 @@
     height: 100px;
     padding: 5px;
 }
+
+#options {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}

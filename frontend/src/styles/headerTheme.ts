@@ -4,8 +4,19 @@ export const headerTheme = createTheme(
     {
         palette: {
             primary: {
-                main: '4a6d7c',
+                main: '#b3b7ee',
+                dark: '#4e4c6b',
+                light: '#b3b7ee',
             },
+            secondary: {
+                main: '#a2a3bb',
+            },
+            error: {
+                main: '#c33c54',
+            },
+            success: {
+                main: '#1b998b',
+            }
         },
         components: {
             MuiFab: {
@@ -32,7 +43,7 @@ export const headerTheme = createTheme(
                 styleOverrides: {
                     root: {
                         width: '150px',
-                        padding: '5px'
+                        padding: '5px',
                     },
                 },
             },
