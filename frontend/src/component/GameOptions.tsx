@@ -31,7 +31,7 @@ export default function GameOptions({indexCards, setIndexCards, updateIndexCard}
         return randomIndexArray().map(randomIndex => indexCards[randomIndex])
     }
 
-    const deck = reorderCards()
+    const [deck] = useState<IndexCard[]>(reorderCards)
 
     return (
         <div>

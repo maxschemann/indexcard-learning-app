@@ -1,11 +1,12 @@
 import {Difficulty, IndexCard} from "../model/IndexCard";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Fab, TextField} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import {toast} from "react-toastify";
 
 type GameProps = {
     deck: IndexCard[],
-    updateIndexCard: (id: string, indexCard: Omit<IndexCard, "id">) => void
+    updateIndexCard: (id: string, indexCard: Omit<IndexCard, "id">) => void,
 }
 
 export default function Game({deck, updateIndexCard}: GameProps) {
@@ -14,73 +15,56 @@ export default function Game({deck, updateIndexCard}: GameProps) {
 
     const [index, setIndex] = useState<number>(0)
 
-    const [nextCard, setNextCard] = useState<IndexCard>(deck[index])
+    const [nextCard, setNextCard] = useState<IndexCard>()
 
-    const pickNextCard = () => {
-        setIndex(index + 1)
+    useEffect(() => {
         setNextCard(deck[index])
-        setTranslation("")
+    }, [index, deck])
+
+    const reevaluateDifficulty = (previousCard: IndexCard) => {
+        const difficultyString = previousCard.difficulty.toString()
+
+        if (translation === previousCard.term2) {
+            if (difficultyString === Difficulty[Difficulty.EASY]) throw new Error("Too easy!")
+            if (difficultyString === Difficulty[Difficulty.HARD]) return createIndexCardDto(Difficulty.MEDIUM, previousCard)
+            if (difficultyString === Difficulty[Difficulty.MEDIUM]) return createIndexCardDto(Difficulty.EASY, previousCard)
+        }
+        if (translation !== previousCard.term2) {
+            if (difficultyString === Difficulty[Difficulty.HARD]) throw new Error("Already difficult!")
+            if (difficultyString === Difficulty[Difficulty.MEDIUM]) return createIndexCardDto(Difficulty.HARD, previousCard)
+            if (difficultyString === Difficulty[Difficulty.EASY]) return createIndexCardDto(Difficulty.MEDIUM, previousCard)
+        }
     }
 
     const submitTranslation = () => {
-        if (translation === nextCard.term2 && nextCard.difficulty.toString() === Difficulty[Difficulty.EASY]) {
-            pickNextCard()
+        try {
+            const createDto = nextCard && reevaluateDifficulty(nextCard)
+            createDto && nextCard && updateIndexCard(nextCard.id, createDto)
+        } catch (e: any) {
+            toast(e.message)
         }
-        if (translation !== nextCard.term2 && nextCard.difficulty.toString() === Difficulty[Difficulty.HARD]) {
-            pickNextCard()
-        }
-        if (translation === nextCard.term2) {
-            const createDto = reevaluateDifficulty('DOWN')
-            updateIndexCard(nextCard.id, createDto)
-            pickNextCard()
-        } else {
-            const createDto = reevaluateDifficulty('UP')
-            updateIndexCard(nextCard.id, createDto)
-            pickNextCard()
-        }
+        setIndex(index + 1)
+        setTranslation("")
     }
 
-    const reevaluateDifficulty = (upOrDown: string) => {
-        if (upOrDown === 'DOWN' && nextCard.difficulty.toString() === Difficulty[Difficulty.HARD]) {
-            return createIndexCardDto(1)
-        }
-        if (upOrDown === 'DOWN' && nextCard.difficulty.toString() === Difficulty[Difficulty.MEDIUM]) {
-            return createIndexCardDto(0)
-        }
-        if (upOrDown === 'UP' && nextCard.difficulty.toString() === Difficulty[Difficulty.MEDIUM]) {
-            return createIndexCardDto(2)
-        }
-        if (upOrDown === 'UP' && nextCard.difficulty.toString() === Difficulty[Difficulty.EASY]) {
-            return createIndexCardDto(1)
-        } else return createIndexCardDto(-1)
-    }
-
-    const createIndexCardDto = (diff: number) => {
-        let newDifficulty: Difficulty = Difficulty.MEDIUM
-
-        if (diff === -1) newDifficulty = nextCard.difficulty
-        if (diff === 0) newDifficulty = Difficulty.EASY
-        if (diff === 1) newDifficulty = Difficulty.MEDIUM
-        if (diff === 2) newDifficulty = Difficulty.HARD
-
+    const createIndexCardDto = (newDifficulty: Difficulty, previousCard: IndexCard) => {
         return {
-            term1: nextCard.term1,
-            term2: nextCard.term2,
+            term1: previousCard.term1,
+            term2: previousCard.term2,
             difficulty: newDifficulty
         }
     }
 
     return (
         <div>
-            {index <= deck.length ? (
+            {deck.length > 0 && nextCard ? (
                     <div>
                         <TextField value={nextCard.term1} disabled={true}/>
-                        <TextField value={translation} placeholder={"Enter"}
+                        <TextField value={translation} placeholder={"Enter a translation"}
                                    onChange={event => setTranslation(event.target.value)}/>
                         <Fab onClick={submitTranslation}>
                             <AddIcon/>
                         </Fab>
-
                     </div>
                 )
                 :

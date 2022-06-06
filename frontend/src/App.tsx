@@ -17,20 +17,22 @@ function App() {
         <div id={"app"}>
             <Header setIndexCards={setIndexCards}/>
             <ToastContainer/>
+            <div id={"mainView"}>
             <Routes>
-                <Route path="/"
-                       element={<IndexCardOverview indexCards={indexCards}
-                                                   removeIndexCard={removeIndexCard}
-                                                   addNewIndexCard={addNewIndexCard}
-                                                   updateIndexCard={updateIndexCard}
-                       />}/>
-                <Route path="/add"
-                       element={<EditIndexCard addNewIndexCard={addNewIndexCard}/>}/>
-                <Route path="/game"
-                       element={<GameOptions indexCards={indexCards}
-                                             setIndexCards={setIndexCards}
-                                             updateIndexCard={updateIndexCard}/>}/>
+                    <Route path="/"
+                           element={<IndexCardOverview indexCards={indexCards}
+                                                       removeIndexCard={removeIndexCard}
+                                                       addNewIndexCard={addNewIndexCard}
+                                                       updateIndexCard={updateIndexCard}
+                           />}/>
+                    <Route path="/add"
+                           element={<EditIndexCard addNewIndexCard={addNewIndexCard}/>}/>
+                    <Route path="/game"
+                           element={<GameOptions indexCards={indexCards}
+                                                 setIndexCards={setIndexCards}
+                                                 updateIndexCard={updateIndexCard}/>}/>
             </Routes>
+        </div>
         </div>
     );
 }
