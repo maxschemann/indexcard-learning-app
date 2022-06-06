@@ -7,7 +7,7 @@ import React, {useState} from "react";
 import {IndexCard} from "../model/IndexCard";
 import {headerTheme} from "../styles/headerTheme";
 import Box from "@mui/material/Box";
-import '../styles/Header.css'
+import '../styles/Header.css';
 
 type HeaderProps = {
     setIndexCards: (indexCards: IndexCard[]) => void
