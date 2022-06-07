@@ -6,17 +6,39 @@ import {Difficulty, IndexCard} from "../model/IndexCard";
 import '../styles/EditIndexCard.css';
 import ChangeDifficulty from "./ChangeDifficulty";
 
-type IndexCardFormProps = {
+type EditIndexCardProps = {
     indexCard?: IndexCard,
+    indexCardDto?: Omit<IndexCard, "id" | "difficulty">,
     addNewIndexCard: (indexCard: Omit<IndexCard, "id">) => void,
     updateIndexCard?: (id: string, indexCard: Omit<IndexCard, "id">) => void,
-    removeIndexCard?: (id: string) => void
+    removeIndexCard?: (id: string) => void,
+    submitOptions?: {
+        multipleAdd: boolean,
+        submitEffect?: (args: any) => any
+    }
 }
 
-export default function EditIndexCard({indexCard, addNewIndexCard, updateIndexCard, removeIndexCard}: IndexCardFormProps) {
+export default function EditIndexCard({
+                                          indexCard,
+                                          indexCardDto,
+                                          addNewIndexCard,
+                                          updateIndexCard,
+                                          removeIndexCard,
+                                          submitOptions,
+                                      }: EditIndexCardProps) {
 
-    const [term1, setTerm1] = useState(indexCard ? indexCard.term1 : "")
-    const [term2, setTerm2] = useState(indexCard ? indexCard.term2 : "")
+    const [term1, setTerm1] = useState(() => {
+        if (indexCard) return indexCard.term1
+        if (indexCardDto) return indexCardDto.term1
+        else return undefined
+    })
+
+    const [term2, setTerm2] = useState(() => {
+        if (indexCard) return indexCard.term2
+        if (indexCardDto) return indexCardDto.term2
+        else return undefined
+    })
+
     const [difficulty, setDifficulty] = useState<Difficulty>(indexCard ? indexCard.difficulty : Difficulty.HARD)
 
     const submitIndexCard = (event: FormEvent) => {
@@ -29,17 +51,17 @@ export default function EditIndexCard({indexCard, addNewIndexCard, updateIndexCa
             toast.warn("Please enter a translation")
             return
         }
-        if (!indexCard) {
+        if (!indexCard && term1 && term2) {
             const newIndexCardDto = createNewIndexCardDto()
-            addNewIndexCard(newIndexCardDto)
+            newIndexCardDto && addNewIndexCard(newIndexCardDto)
         } else {
-            const newIndexCardDto = createNewIndexCardDto()
-            updateIndexCard && updateIndexCard(indexCard.id, newIndexCardDto)
+            const newIndexCardDto: Omit<IndexCard, "id"> | undefined = createNewIndexCardDto()
+            if (newIndexCardDto && updateIndexCard && indexCard) updateIndexCard(indexCard.id, newIndexCardDto)
         }
     }
 
     const createNewIndexCardDto = () => {
-        return {
+        if (term1 && term2) return {
             term1: term1,
             term2: term2,
             difficulty: difficulty,
@@ -66,7 +88,8 @@ export default function EditIndexCard({indexCard, addNewIndexCard, updateIndexCa
                 </div>
                 <div id={"bottomRow"}>
                     <ChangeDifficulty setDifficulty={setDifficulty}/>
-                    <Fab type={"submit"}>
+                    <Fab type={"submit"}
+                         onClick={() => submitOptions && submitOptions.submitEffect}>
                         <AddIcon/>
                     </Fab>
                 </div>

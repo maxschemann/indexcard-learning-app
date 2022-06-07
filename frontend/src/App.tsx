@@ -8,6 +8,7 @@ import {Route, Routes} from 'react-router-dom';
 import EditIndexCard from "./component/EditIndexCard";
 import useIndexCard from "./hook/useIndexCard";
 import GameOptions from "./component/GameOptions";
+import Translation from "./component/Translation";
 
 function App() {
 
@@ -18,7 +19,7 @@ function App() {
             <Header setIndexCards={setIndexCards}/>
             <ToastContainer/>
             <div id={"mainView"}>
-            <Routes>
+                <Routes>
                     <Route path="/"
                            element={<IndexCardOverview indexCards={indexCards}
                                                        removeIndexCard={removeIndexCard}
@@ -26,13 +27,17 @@ function App() {
                                                        updateIndexCard={updateIndexCard}
                            />}/>
                     <Route path="/add"
-                           element={<EditIndexCard addNewIndexCard={addNewIndexCard}/>}/>
+                           element={<EditIndexCard addNewIndexCard={addNewIndexCard}
+                                                    submitOptions={{multipleAdd: true, submitEffect: () => console.log("Test")}}/>}/>
                     <Route path="/game"
                            element={<GameOptions indexCards={indexCards}
                                                  setIndexCards={setIndexCards}
                                                  updateIndexCard={updateIndexCard}/>}/>
-            </Routes>
-        </div>
+                    <Route path="/translate"
+                           element={<Translation addNewIndexCard={addNewIndexCard}
+                                                 indexCards={indexCards}/>}/>
+                </Routes>
+            </div>
         </div>
     );
 }

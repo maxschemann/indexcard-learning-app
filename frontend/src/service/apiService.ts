@@ -22,3 +22,8 @@ export const deleteIndexCard: (id: string) => Promise<void> = (id) => {
     return axios.delete(url + id)
 }
 
+export const getTranslation = (term: string) => {
+    return axios.get("/api/translation/"+term)
+        .then(response => response.data)
+}
+
