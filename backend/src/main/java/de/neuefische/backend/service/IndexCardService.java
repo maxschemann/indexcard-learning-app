@@ -19,6 +19,9 @@ public class IndexCardService {
     }
 
     public IndexCard addNewIndexCard(IndexCardDto indexCardDto) {
+        if (indexCardDto.getTerm1() == null || indexCardDto.getTerm2() == null) {
+            throw new IllegalArgumentException("Word or Translation missing!");
+        }
         IndexCard newIndexCard = createNewIndexCard(indexCardDto);
         return indexCardRepo.insert(newIndexCard);
     }
@@ -28,6 +31,7 @@ public class IndexCardService {
     }
 
     public IndexCard updateIndexCard(String id, IndexCardDto updatedIndexCard) {
+
         IndexCard newIndexCard = createNewIndexCard(updatedIndexCard);
         newIndexCard.setId(id);
         return indexCardRepo.save(newIndexCard);

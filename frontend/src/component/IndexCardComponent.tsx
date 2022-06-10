@@ -1,5 +1,5 @@
 import {IndexCard} from "../model/IndexCard";
-import {Card, CardContent, ThemeProvider} from "@mui/material";
+import {Button, Card, CardContent, ThemeProvider} from "@mui/material";
 import '../styles/IndexCardComponent.css';
 import IndexCardData from "./IndexCardData";
 import EditIndexCard from "./EditIndexCard";
@@ -22,26 +22,24 @@ export default function IndexCardComponent({
 
     const [edit, setEdit] = useState<boolean>(false)
 
-    const switchEdit = () => {
-        setEdit(!edit)
-    }
-
     return (
         <div id={"indexCard"}>
             <ThemeProvider theme={cardTheme}>
-                <Card onClick={switchEdit}>
+                <Card>
                     <CardContent>
                         {edit ? <div>
                                 <EditIndexCard indexCard={indexCard}
                                                addNewIndexCard={addNewIndexCard}
                                                updateIndexCard={updateIndexCard}
                                                removeIndexCard={removeIndexCard}
+                                               submitOptions={{multipleAdd: false}}
                                 />
                             </div>
                             : <div>
                                 <IndexCardData indexCard={indexCard}
                                                gameMode={false}/>
                             </div>}
+                        <Button onClick={() => setEdit(!edit)}>Edit</Button>
                     </CardContent>
                 </Card>
             </ThemeProvider>
