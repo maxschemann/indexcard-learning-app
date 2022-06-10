@@ -5,6 +5,8 @@ import de.neuefische.backend.model.IndexCard;
 import de.neuefische.backend.model.dto.IndexCardDto;
 import de.neuefische.backend.repository.IndexCardRepository;
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -55,6 +57,27 @@ class IndexCardServiceTest {
                 .build();
         verify(repo).insert(mockCard_noId);
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void addNewIndexCard_WhenTermsMissing() {
+        //given dtos with either term1 and/ or term2 missing
+        IndexCardDto missingTerm1 = IndexCardDto.builder()
+                .term2("test2")
+                .difficulty(Difficulty.MEDIUM)
+                .build();
+        IndexCardDto missingTerm2 = IndexCardDto.builder()
+                .term1("test1")
+                .difficulty(Difficulty.MEDIUM)
+                .build();
+        IndexCardDto missingBothTerms = IndexCardDto.builder()
+                .difficulty(Difficulty.MEDIUM)
+                .build();
+        IndexCardDto[] testCards = new IndexCardDto[]{missingTerm1, missingTerm2, missingBothTerms};
+        //when adding, then throw IllegalArgumentException
+        Arrays.stream(testCards).forEach( card -> {
+            assertThrows(IllegalArgumentException.class, () -> service.addNewIndexCard(card));
+        });
     }
 
     @Test
