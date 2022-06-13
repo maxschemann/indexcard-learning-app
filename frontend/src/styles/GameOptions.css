@@ -1,0 +1,9 @@
+#game {
+    display: flex;
+    justify-content: center;
+}
+
+#gameOptions {
+    display: flex;
+    flex-direction: row;
+}

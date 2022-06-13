@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.Objects;
+
 @Service
 public class TranslationApiService {
 
@@ -33,8 +35,10 @@ public class TranslationApiService {
                     .retrieve()
                     .toEntity(Response.class)
                     .block();
-
-        return parseTranslation(answer.getBody());
+        if (answer == null) {
+            throw new NullPointerException("API response was null");
+        }
+        return parseTranslation(Objects.requireNonNull(answer.getBody()));
     }
 
     public String parseTranslation(Response response) {

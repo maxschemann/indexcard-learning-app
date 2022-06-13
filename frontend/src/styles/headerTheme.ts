@@ -32,17 +32,16 @@ export const headerTheme = createTheme(
             MuiSelect: {
                 styleOverrides: {
                     select: {
-                        width: '50px',
+                        width: '70px',
                     },
                 },
             },
             MuiTextField: {
                 defaultProps: {
-                    placeholder: 'FInd a word',
+                    placeholder: 'Find a word',
                 },
                 styleOverrides: {
                     root: {
-                        width: '150px',
                         padding: '5px',
                     },
                 },

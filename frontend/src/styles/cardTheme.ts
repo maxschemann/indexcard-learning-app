@@ -1,15 +1,16 @@
 import {createTheme} from "@mui/material";
+import {headerTheme} from "./headerTheme";
 
 export const cardTheme = createTheme({
     components: {
         MuiTextField: {
             defaultProps: {
                 multiline: true,
-                placeholder: 'Please enter a word...',
+                placeholder: '...',
             },
             styleOverrides: {
                 root: {
-                    padding: '5px'
+                    padding: '5px',
                 },
             },
         },
@@ -19,7 +20,9 @@ export const cardTheme = createTheme({
             },
             styleOverrides: {
                 root: {
-                    marginLeft: '5px',
+                    marginLeft: '30px',
+                    marginTop: '10px',
+                    backgroundColor: headerTheme.palette.primary.light,
                 },
             },
         },
@@ -33,12 +36,48 @@ export const cardTheme = createTheme({
                 },
             },
         },
+        MuiButtonGroup: {
+            styleOverrides: {
+                root: {
+                    height: "60px",
+                    display: "flex",
+                    alignContent: "center",
+                },
+            },
+        },
         MuiButton: {
             styleOverrides: {
                 root: {
                     display: "flex",
-                    justifyContent: "right",
+                    justifyContent: "center",
                     padding: "10px",
+                    marginTop: "10px",
+                    marginLeft: "15px",
+                    color: headerTheme.palette.primary.dark
+                },
+            },
+        },
+        MuiCard: {
+            styleOverrides: {
+                root: {
+                    padding: "10px",
+                    width: "450px",
+                    display: "flex",
+                    justifyContent: "center",
+                },
+            },
+        },
+        MuiSelect: {
+            styleOverrides: {
+                select: {
+                    width: '150px',
+                    marginLeft: '10px'
+                },
+            },
+        },
+        MuiIcon: {
+            styleOverrides: {
+                root: {
                 },
             },
         },

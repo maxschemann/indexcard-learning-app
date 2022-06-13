@@ -1,0 +1,13 @@
+#translation {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#translation div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 300px;
+}

@@ -1,0 +1,11 @@
+#gameView {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#gameView div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

@@ -16,7 +16,9 @@ export default function SortIndexCards({setIndexCards}: SortIndexCardsProps) {
 
     return (
         <div>
-        <Select label={"Select Difficulty"}>
+        <Select label={"Select Difficulty"}
+                displayEmpty={true}
+                renderValue={() => "Difficulty"}>
             <InputLabel>Select Difficulty</InputLabel>
             <MenuItem onClick={() => getAllIndexCards()
                 .then(response => setIndexCards(response))}>All</MenuItem>

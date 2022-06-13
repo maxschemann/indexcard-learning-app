@@ -7,7 +7,12 @@ form div {
     padding: 5px;
 }
 
+#topRow {
+    display: flex;
+    flex-direction: column;
+}
+
 #bottomRow {
     display: flex;
-    justify-content: center;
+    align-items: center;
 }
