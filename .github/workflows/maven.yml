@@ -7,13 +7,6 @@ on: push
 
 jobs:
   build:
-  
-    environment:
-      name: maven-build
-    
-    env:
-      API_APP_KEY: ${{ secrets.API_APP_KEY }}
-      API_APP_ID: ${{ secrets.API_APP_ID }}
       
     runs-on: ubuntu-latest
 
