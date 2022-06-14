@@ -1,10 +1,13 @@
-import {Box, Fab, MenuItem, Select, TextField} from "@mui/material";
+import {Button, Card, CardContent,MenuItem, Select, TextField} from "@mui/material";
 import {useState} from "react";
 import {getTranslation} from "../service/apiService";
 import {toast} from "react-toastify";
 import {IndexCard} from "../model/IndexCard";
 import EditIndexCard from "./EditIndexCard";
 import useLanguages from "../hook/useLanguages";
+import '../styles/Translation.css';
+import SaveIcon from '@mui/icons-material/Save';
+import SearchIcon from '@mui/icons-material/Search';
 
 type TranslationProps = {
     indexCards: IndexCard[]
@@ -13,13 +16,15 @@ type TranslationProps = {
 
 export default function Translation({addNewIndexCard}: TranslationProps) {
 
-    const {languages,
+    const {
+        languages,
         compatibleLanguages,
         langOrigin,
         langTarget,
         setLangOrigin,
         setLangTarget,
-        updateCompatibleLanguages} = useLanguages()
+        updateCompatibleLanguages
+    } = useLanguages()
 
     const [term, setTerm] = useState<string>("")
     const [translation, setTranslation] = useState<string>("")
@@ -33,8 +38,10 @@ export default function Translation({addNewIndexCard}: TranslationProps) {
 
     const displayLanguages = () => {
         return (
-            <Box>
-                <Select>
+            <div>
+                <Select displayEmpty={true}
+                        renderValue={() => "English"}
+                value={""}>
                     {
                         languages && languages.map(language => {
                                 return (
@@ -49,35 +56,51 @@ export default function Translation({addNewIndexCard}: TranslationProps) {
                         )
                     }
                 </Select>
-                <Select>
+                <Select displayEmpty={true}
+                        renderValue={() => "German"}
+                        value={""}>
                     {
                         compatibleLanguages.map(id => {
                             return (
                                 id && <MenuItem onClick={() => setLangTarget(id)}
-                                          key={id}>
+                                                key={id}>
                                     {id}</MenuItem>
                             )
                         })
                     }
                 </Select>
-            </Box>
+            </div>
         )
     }
 
     return (
-        <Box>
-            {displayLanguages()}
-            <TextField value={term}
-                       placeholder={"Enter a word"}
-                       onChange={(event) => {
-                           setEditMode(false)
-                           setTerm(event.target.value)
-                       }}/>
-            <TextField disabled={true} value={translation}/>
-            <Fab onClick={() => translate()}>Translate</Fab>
-            <Fab onClick={() => setEditMode(true)}>Save</Fab>
-            {editMode && <EditIndexCard addNewIndexCard={addNewIndexCard}
-                                        indexCardDto={{term1: term, term2: translation}}/>}
-        </Box>
+        <div id={"card"}>
+            <Card>
+                <CardContent>
+                    {displayLanguages()}
+                    <div id={"translation"}>
+                        <div>
+                            <TextField value={term}
+                                       placeholder={"Enter a word"}
+                                       onChange={(event) => {
+                                           setEditMode(false)
+                                           setTerm(event.target.value)
+                                       }}/>
+                            <Button onClick={() => translate()}>
+                                <SearchIcon/>
+                            </Button>
+                        </div>
+                        <div>
+                            <TextField disabled={true} value={translation}/>
+                            <Button onClick={() => setEditMode(true)}>
+                                <SaveIcon/>
+                            </Button>
+                            {editMode && <EditIndexCard addNewIndexCard={addNewIndexCard}
+                                                        indexCardDto={{term1: term, term2: translation}}/>}
+                        </div>
+                    </div>
+                </CardContent>
+            </Card>
+        </div>
     )
 }

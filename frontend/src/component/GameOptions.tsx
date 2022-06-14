@@ -1,8 +1,9 @@
 import {IndexCard} from "../model/IndexCard";
 import SortIndexCards from "./SortIndexCards";
-import {Button} from "@mui/material";
+import {Button, Card, CardContent} from "@mui/material";
 import Game from "./Game";
 import {useState} from "react";
+import '../styles/GameOptions.css';
 
 type GameOptionsProps = {
     indexCards: IndexCard[],
@@ -34,13 +35,20 @@ export default function GameOptions({indexCards, setIndexCards, updateIndexCard}
     const [deck] = useState<IndexCard[]>(reorderCards)
 
     return (
-        <div>
-            <SortIndexCards setIndexCards={setIndexCards}/>
-            <Button onClick={() => setGameOn(!gameOn)}>Start game</Button>
-            {
-                gameOn && <Game deck={deck}
-                                updateIndexCard={updateIndexCard}/>
-            }
+        <div id={"game"}>
+            <Card>
+                <CardContent>
+                    <div id={"gameOptions"}>
+                        <SortIndexCards setIndexCards={setIndexCards}/>
+                        <Button onClick={() => setGameOn(!gameOn)}>Start game</Button>
+                    </div>
+                        {
+                            gameOn && <Game deck={deck}
+                                            updateIndexCard={updateIndexCard}/>
+                        }
+
+                </CardContent>
+            </Card>
         </div>
     )
 }

@@ -1,8 +1,9 @@
 import {Difficulty, IndexCard} from "../model/IndexCard";
 import {useEffect, useState} from "react";
-import {Fab, TextField} from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
+import {Button,TextField} from "@mui/material";
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import {toast} from "react-toastify";
+import '../styles/Game.css';
 
 type GameProps = {
     deck: IndexCard[],
@@ -58,13 +59,17 @@ export default function Game({deck, updateIndexCard}: GameProps) {
     return (
         <div>
             {deck.length > 0 && nextCard ? (
-                    <div>
-                        <TextField value={nextCard.term1} disabled={true}/>
-                        <TextField value={translation} placeholder={"Enter a translation"}
-                                   onChange={event => setTranslation(event.target.value)}/>
-                        <Fab onClick={submitTranslation}>
-                            <AddIcon/>
-                        </Fab>
+                    <div id={"gameView"}>
+                        <div>
+                            <TextField value={nextCard.term1} disabled={true}/>
+                            <TextField value={translation} placeholder={"Enter a translation"}
+                                       onChange={event => setTranslation(event.target.value)}/>
+                        </div>
+                        <div>
+                            <Button onClick={submitTranslation}>
+                                <ArrowForwardIosIcon/>
+                            </Button>
+                        </div>
                     </div>
                 )
                 :
