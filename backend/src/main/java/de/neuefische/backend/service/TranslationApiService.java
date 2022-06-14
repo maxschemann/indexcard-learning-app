@@ -17,10 +17,10 @@ public class TranslationApiService {
 
     private final WebClient webClient = WebClient.builder().build();
 
-    @Value("${api.app.id}")
+    @Value("${API_APP_ID}")
     private String appId;
 
-    @Value("${api.app.key}")
+    @Value("${API_APP_KEY}")
     private String appKey;
 
     public String getTranslation(String langOrigin, String langTarget, String term) {

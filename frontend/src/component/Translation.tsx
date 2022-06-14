@@ -1,4 +1,4 @@
-import {Button, Card, CardContent,MenuItem, Select, TextField} from "@mui/material";
+import {Button, Card, CardContent, MenuItem, Select, TextField} from "@mui/material";
 import {useState} from "react";
 import {getTranslation} from "../service/apiService";
 import {toast} from "react-toastify";
@@ -41,7 +41,7 @@ export default function Translation({addNewIndexCard}: TranslationProps) {
             <div>
                 <Select displayEmpty={true}
                         renderValue={() => "English"}
-                value={""}>
+                        value={""}>
                     {
                         languages && languages.map(language => {
                                 return (
@@ -60,11 +60,14 @@ export default function Translation({addNewIndexCard}: TranslationProps) {
                         renderValue={() => "German"}
                         value={""}>
                     {
-                        compatibleLanguages.map(id => {
+                        compatibleLanguages.map(cLanguage => {
                             return (
-                                id && <MenuItem onClick={() => setLangTarget(id)}
-                                                key={id}>
-                                    {id}</MenuItem>
+                                <MenuItem onClick={() => {
+                                    setLangTarget(cLanguage)
+                                }}
+                                          key={cLanguage}>
+                                    {cLanguage}
+                                </MenuItem>
                             )
                         })
                     }

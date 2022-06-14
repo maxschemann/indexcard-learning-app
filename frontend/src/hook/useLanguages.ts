@@ -25,6 +25,11 @@ export default function useLanguages() {
         // eslint-disable-next-line
     }, [])
 
+    useEffect(() => {
+        setLangTarget("")
+        updateCompatibleLanguages()
+    }, [langOrigin, languages])
+
     return {
         languages,
         langOrigin,
