@@ -11,6 +11,7 @@ import Translation from "./component/Translation";
 import AddIndexCard from "./component/AddIndexCard";
 import {ThemeProvider} from "@mui/material";
 import {cardTheme} from "./styles/cardTheme";
+import Info from "./component/Info";
 
 function App() {
 
@@ -38,6 +39,8 @@ function App() {
                     <Route path="/translate"
                            element={<Translation addNewIndexCard={addNewIndexCard}
                                                  indexCards={indexCards}/>}/>
+                    <Route path="/info"
+                           element={<Info/>}/>
                 </Routes>
                 </ThemeProvider>
             </div>
