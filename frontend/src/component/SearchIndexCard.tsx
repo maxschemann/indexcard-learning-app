@@ -13,7 +13,13 @@ export default function SearchIndexCard({setIndexCards}: SearchIndexCardProps) {
 
     useEffect(() => {
         getAllIndexCards()
-            .then(response => setIndexCards(response.filter(card => card.term1.includes(searchTerm) || card.term2.includes(searchTerm))))
+            .then(response => setIndexCards(response.filter(card => {
+                    return (
+                        card.term1.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                        card.term2.toLowerCase().includes(searchTerm.toLowerCase())
+                    )
+                }
+            )))
         // eslint-disable-next-line
     }, [searchTerm])
 
