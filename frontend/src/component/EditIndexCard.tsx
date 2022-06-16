@@ -1,4 +1,4 @@
-import {Button, TextField, ThemeProvider} from "@mui/material";
+import {Button, TextField, ThemeProvider, Tooltip} from "@mui/material";
 import SaveIcon from '@mui/icons-material/Save';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {FormEvent, useState} from "react";
@@ -84,14 +84,18 @@ export default function EditIndexCard({
                     <div id={"bottomRow"}>
                         <ChangeDifficulty setDifficulty={setDifficulty}/>
                         <div>
-                            <Button type={"submit"}>
-                                <SaveIcon/>
-                            </Button>
-                            {removeIndexCard && indexCard && <Button onClick={() => {
-                                removeIndexCard(indexCard.id)
-                            }}>
-                                <DeleteIcon/>
-                            </Button>}
+                            <Tooltip title="Save">
+                                <Button type={"submit"}>
+                                    <SaveIcon/>
+                                </Button>
+                            </Tooltip>
+                            {removeIndexCard && indexCard && <Tooltip title="Delete">
+                                <Button onClick={() => {
+                                    removeIndexCard(indexCard.id)
+                                }}>
+                                    <DeleteIcon/>
+                                </Button>
+                            </Tooltip>}
                         </div>
                     </div>
                 </form>

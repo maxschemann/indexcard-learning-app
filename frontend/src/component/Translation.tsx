@@ -1,4 +1,4 @@
-import {Button, Card, CardContent,MenuItem, Select, TextField} from "@mui/material";
+import {Button, Card, CardContent, TextField, Tooltip} from "@mui/material";
 import {useState} from "react";
 import {getTranslation} from "../service/apiService";
 import {toast} from "react-toastify";
@@ -8,6 +8,7 @@ import useLanguages from "../hook/useLanguages";
 import '../styles/Translation.css';
 import SaveIcon from '@mui/icons-material/Save';
 import SearchIcon from '@mui/icons-material/Search';
+import DisplayLanguages from "./DisplayLanguages";
 
 type TranslationProps = {
     indexCards: IndexCard[]
@@ -23,7 +24,8 @@ export default function Translation({addNewIndexCard}: TranslationProps) {
         langTarget,
         setLangOrigin,
         setLangTarget,
-        updateCompatibleLanguages
+        updateCompatibleLanguages,
+        getLanguageNames,
     } = useLanguages()
 
     const [term, setTerm] = useState<string>("")
@@ -36,48 +38,18 @@ export default function Translation({addNewIndexCard}: TranslationProps) {
             .catch(() => toast.error("Failed to translate"))
     }
 
-    const displayLanguages = () => {
-        return (
-            <div>
-                <Select displayEmpty={true}
-                        renderValue={() => "English"}
-                value={""}>
-                    {
-                        languages && languages.map(language => {
-                                return (
-                                    <MenuItem onClick={() => {
-                                        setLangOrigin(language.id)
-                                        updateCompatibleLanguages()
-                                    }}
-                                              key={language.id}>
-                                        {language.name}</MenuItem>
-                                )
-                            }
-                        )
-                    }
-                </Select>
-                <Select displayEmpty={true}
-                        renderValue={() => "German"}
-                        value={""}>
-                    {
-                        compatibleLanguages.map(id => {
-                            return (
-                                id && <MenuItem onClick={() => setLangTarget(id)}
-                                                key={id}>
-                                    {id}</MenuItem>
-                            )
-                        })
-                    }
-                </Select>
-            </div>
-        )
-    }
-
     return (
         <div id={"card"}>
             <Card>
                 <CardContent>
-                    {displayLanguages()}
+                    <DisplayLanguages languages={languages}
+                                      compatibleLanguages={compatibleLanguages}
+                                      updateCompatibleLanguages={updateCompatibleLanguages}
+                                      langOrigin={langOrigin}
+                                      setLangOrigin={setLangOrigin}
+                                      langTarget={langTarget}
+                                      setLangTarget={setLangTarget}
+                                      getLanguageNames={getLanguageNames}/>
                     <div id={"translation"}>
                         <div>
                             <TextField value={term}
@@ -86,18 +58,22 @@ export default function Translation({addNewIndexCard}: TranslationProps) {
                                            setEditMode(false)
                                            setTerm(event.target.value)
                                        }}/>
-                            <Button onClick={() => translate()}>
-                                <SearchIcon/>
-                            </Button>
+                            <Tooltip title={"Translate"}>
+                                <Button onClick={() => translate()}>
+                                    <SearchIcon/>
+                                </Button>
+                            </Tooltip>
                         </div>
                         <div>
                             <TextField disabled={true} value={translation}/>
-                            <Button onClick={() => setEditMode(true)}>
-                                <SaveIcon/>
-                            </Button>
-                            {editMode && <EditIndexCard addNewIndexCard={addNewIndexCard}
-                                                        indexCardDto={{term1: term, term2: translation}}/>}
+                            <Tooltip title={"Save"}>
+                                <Button onClick={() => setEditMode(true)}>
+                                    <SaveIcon/>
+                                </Button>
+                            </Tooltip>
                         </div>
+                        {editMode && <EditIndexCard addNewIndexCard={addNewIndexCard}
+                                                    indexCardDto={{term1: term, term2: translation}}/>}
                     </div>
                 </CardContent>
             </Card>

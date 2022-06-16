@@ -32,7 +32,7 @@ export default function GameOptions({indexCards, setIndexCards, updateIndexCard}
         return randomIndexArray().map(randomIndex => indexCards[randomIndex])
     }
 
-    const [deck] = useState<IndexCard[]>(reorderCards)
+    const [deck, setDeck] = useState<IndexCard[]>()
 
     return (
         <div id={"game"}>
@@ -40,13 +40,16 @@ export default function GameOptions({indexCards, setIndexCards, updateIndexCard}
                 <CardContent>
                     <div id={"gameOptions"}>
                         <SortIndexCards setIndexCards={setIndexCards}/>
-                        <Button onClick={() => setGameOn(!gameOn)}>Start game</Button>
+                        <Button onClick={() => {
+                            setDeck(reorderCards())
+                            setGameOn(!gameOn)
+                        }}>
+                            Start game</Button>
                     </div>
                         {
-                            gameOn && <Game deck={deck}
+                            gameOn && deck && <Game deck={deck}
                                             updateIndexCard={updateIndexCard}/>
                         }
-
                 </CardContent>
             </Card>
         </div>

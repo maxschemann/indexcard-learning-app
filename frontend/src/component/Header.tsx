@@ -25,7 +25,7 @@ export default function Header({setIndexCards}: HeaderProps) {
         backgroundColor: headerTheme.palette.primary.light
     }
 
-    const paths = ["", "/", "/add", "/game", "/translate"]
+    const paths = ["", "/", "/add", "/game", "/translate", "/info"]
 
     const createMenuItems = () => {
         return paths.map(path => {
@@ -63,6 +63,7 @@ export default function Header({setIndexCards}: HeaderProps) {
         if (path === "/add") return "Add new index card"
         if (path === "/game") return "Practice"
         if (path === "/translate") return "Translate"
+        if (path === "/info") return "Info"
     }
 
     return (

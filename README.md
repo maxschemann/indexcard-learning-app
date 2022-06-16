@@ -3,6 +3,4 @@
 current main branch:
 https://vocabulary-learning-app.herokuapp.com/
 
-Application properties:
-
-![app-props](https://user-images.githubusercontent.com/102051571/172021451-df6defa5-89b3-4e58-873f-505b4d8792d5.PNG)
+![polished](https://user-images.githubusercontent.com/102051571/174131113-8c9306fd-f676-4d58-833f-f530cbb08b51.PNG)

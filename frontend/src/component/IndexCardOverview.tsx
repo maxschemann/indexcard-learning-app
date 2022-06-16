@@ -1,6 +1,7 @@
 import IndexCardComponent from "./IndexCardComponent";
 import React from "react";
 import {IndexCard} from "../model/IndexCard";
+import '../styles/IndexCardOverview.css';
 
 type IndexCardOverviewProps = {
     indexCards: IndexCard[],
@@ -17,7 +18,7 @@ export default function IndexCardOverview({
                                           }: IndexCardOverviewProps) {
 
     return (
-        <div>
+        <div id={"overview"}>
             {indexCards.map(card => <IndexCardComponent indexCard={card}
                                                         removeIndexCard={removeIndexCard}
                                                         addNewIndexCard={addNewIndexCard}

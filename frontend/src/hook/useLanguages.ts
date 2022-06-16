@@ -20,10 +20,20 @@ export default function useLanguages() {
         })
     }
 
+    const getLanguageName = (id: string) => {
+        let foundLanguage = languages && languages.find(l => l.id === id)
+        return foundLanguage && foundLanguage.name
+    }
+
     useEffect(() => {
         getLanguages().then(value => setLanguages(value))
         // eslint-disable-next-line
     }, [])
+
+    useEffect(() => {
+        updateCompatibleLanguages()
+        // eslint-disable-next-line
+    }, [langOrigin, languages])
 
     return {
         languages,
@@ -32,6 +42,7 @@ export default function useLanguages() {
         setLangOrigin,
         setLangTarget,
         compatibleLanguages,
-        updateCompatibleLanguages
+        updateCompatibleLanguages,
+        getLanguageNames: getLanguageName
     }
 }
