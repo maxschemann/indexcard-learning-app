@@ -1,7 +1,8 @@
 import {useEffect, useState} from "react";
-import {TextField} from "@mui/material";
+import {InputAdornment, TextField} from "@mui/material";
 import {IndexCard} from "../model/IndexCard";
 import {getAllIndexCards} from "../service/apiService";
+import SearchIcon from '@mui/icons-material/Search';
 
 type SearchIndexCardProps = {
     setIndexCards: (indexCards: IndexCard[]) => void
@@ -25,6 +26,14 @@ export default function SearchIndexCard({setIndexCards}: SearchIndexCardProps) {
 
     return (
         <TextField value={searchTerm}
-                   onChange={(event) => setSearchTerm(event.target.value)}/>
+                   onChange={(event) => setSearchTerm(event.target.value)}
+                   InputProps={{
+                       startAdornment: (
+                           <InputAdornment position="start">
+                               <SearchIcon/>
+                           </InputAdornment>
+                       ),
+                   }}><SearchIcon/>
+        </TextField>
     )
 }

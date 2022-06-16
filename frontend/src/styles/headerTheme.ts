@@ -29,9 +29,6 @@ export const headerTheme = createTheme(
                 },
             },
             MuiTextField: {
-                defaultProps: {
-                    placeholder: 'Find a word',
-                },
                 styleOverrides: {
                     root: {
                         padding: '5px',
