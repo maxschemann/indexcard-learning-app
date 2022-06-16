@@ -10,3 +10,14 @@
     padding: 20px;
 }
 
+#editButton {
+    display: flex;
+    align-items: center;
+}
+
+#difficulty {
+    display: flex;
+    align-items: flex-end;
+    padding-top: 150px;
+}
+

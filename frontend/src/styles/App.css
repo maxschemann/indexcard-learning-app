@@ -1,7 +1,8 @@
 #app {
     background-color: #4e4c6b;
 }
+
 #mainView {
     margin-top: 50px;
-    height: 812px;
+    height: 100vh;
 }

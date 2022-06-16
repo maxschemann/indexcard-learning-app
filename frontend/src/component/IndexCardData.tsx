@@ -1,5 +1,6 @@
-import {Box, Container,TextField, Typography} from "@mui/material";
+import {TextField} from "@mui/material";
 import {IndexCard} from "../model/IndexCard";
+import '../styles/IndexCardData.css'
 
 type IndexCardDataProps = {
     indexCard: IndexCard,
@@ -16,16 +17,13 @@ export default function IndexCardData({
                                       }: IndexCardDataProps) {
 
     return (
-        <Container>
+            <div id={"textFields"}>
                 <TextField disabled={true} value={indexCard.term1}/>
                 <TextField disabled={!gameMode}
                            value={!gameMode ? indexCard.term2 : translation}
                            placeholder={"Enter the translation..."}
                            onChange={(event) => setTranslation && setTranslation(event.target.value)}>
                 </TextField>
-            <Box padding={"10px"}>
-                <Typography>{indexCard.difficulty}</Typography>
-            </Box>
-        </Container>
+            </div>
     )
 }

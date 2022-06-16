@@ -1,5 +1,5 @@
 import {createTheme} from "@mui/material";
-import {headerTheme} from "./headerTheme";
+import {colorTheme} from "./colorTheme";
 
 export const cardTheme = createTheme({
     components: {
@@ -22,7 +22,7 @@ export const cardTheme = createTheme({
                 root: {
                     marginLeft: '30px',
                     marginTop: '10px',
-                    backgroundColor: headerTheme.palette.primary.light,
+                    backgroundColor: colorTheme.palette.primary.light,
                 },
             },
         },
@@ -53,7 +53,7 @@ export const cardTheme = createTheme({
                     padding: "10px",
                     marginTop: "10px",
                     marginLeft: "15px",
-                    color: headerTheme.palette.primary.dark
+                    color: colorTheme.palette.primary.dark
                 },
             },
         },
@@ -64,6 +64,7 @@ export const cardTheme = createTheme({
                     width: "450px",
                     display: "flex",
                     justifyContent: "center",
+                    borderRadius: "15px",
                 },
             },
         },
@@ -77,8 +78,7 @@ export const cardTheme = createTheme({
         },
         MuiIcon: {
             styleOverrides: {
-                root: {
-                },
+                root: {},
             },
         },
     },

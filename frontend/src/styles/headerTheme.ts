@@ -1,22 +1,14 @@
 import {createTheme} from "@mui/material";
+import {colorTheme} from "./colorTheme";
 
 export const headerTheme = createTheme(
     {
         palette: {
             primary: {
-                main: '#b3b7ee',
-                dark: '#4e4c6b',
-                light: '#b3b7ee',
+                main: colorTheme.palette.primary.main,
+                dark: colorTheme.palette.primary.dark,
+                light: colorTheme.palette.primary.light,
             },
-            secondary: {
-                main: '#a2a3bb',
-            },
-            error: {
-                main: '#c33c54',
-            },
-            success: {
-                main: '#1b998b',
-            }
         },
         components: {
             MuiFab: {
