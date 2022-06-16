@@ -23,7 +23,8 @@ export default function Translation({addNewIndexCard}: TranslationProps) {
         langTarget,
         setLangOrigin,
         setLangTarget,
-        updateCompatibleLanguages
+        updateCompatibleLanguages,
+        getLanguageNames,
     } = useLanguages()
 
     const [term, setTerm] = useState<string>("")
@@ -39,9 +40,7 @@ export default function Translation({addNewIndexCard}: TranslationProps) {
     const displayLanguages = () => {
         return (
             <div>
-                <Select displayEmpty={true}
-                        renderValue={() => "English"}
-                        value={""}>
+                <Select value={langOrigin}>
                     {
                         languages && languages.map(language => {
                                 return (
@@ -49,24 +48,24 @@ export default function Translation({addNewIndexCard}: TranslationProps) {
                                         setLangOrigin(language.id)
                                         updateCompatibleLanguages()
                                     }}
-                                              key={language.id}>
+                                              key={language.id}
+                                              value={language.id}>
                                         {language.name}</MenuItem>
                                 )
                             }
                         )
                     }
                 </Select>
-                <Select displayEmpty={true}
-                        renderValue={() => "German"}
-                        value={""}>
+                <Select value={langTarget}>
                     {
                         compatibleLanguages.map(cLanguage => {
                             return (
                                 <MenuItem onClick={() => {
                                     setLangTarget(cLanguage)
                                 }}
-                                          key={cLanguage}>
-                                    {cLanguage}
+                                          key={cLanguage}
+                                value={cLanguage}>
+                                    {getLanguageNames(cLanguage)}
                                 </MenuItem>
                             )
                         })
@@ -98,9 +97,9 @@ export default function Translation({addNewIndexCard}: TranslationProps) {
                             <Button onClick={() => setEditMode(true)}>
                                 <SaveIcon/>
                             </Button>
-                            {editMode && <EditIndexCard addNewIndexCard={addNewIndexCard}
-                                                        indexCardDto={{term1: term, term2: translation}}/>}
                         </div>
+                        {editMode && <EditIndexCard addNewIndexCard={addNewIndexCard}
+                                                    indexCardDto={{term1: term, term2: translation}}/>}
                     </div>
                 </CardContent>
             </Card>
