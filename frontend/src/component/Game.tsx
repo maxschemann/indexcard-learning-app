@@ -18,6 +18,10 @@ export default function Game({deck, updateIndexCard}: GameProps) {
 
     const [nextCard, setNextCard] = useState<IndexCard>()
 
+    const [correctTranslations, setCorrectTranslations] = useState<number>(0)
+
+    const [wrongTranslations, setWrongTranslations] = useState<number>(0)
+
     useEffect(() => {
         setNextCard(deck[index])
     }, [index, deck])
@@ -26,11 +30,13 @@ export default function Game({deck, updateIndexCard}: GameProps) {
         const difficultyString = previousCard.difficulty.toString()
 
         if (translation === previousCard.term2) {
+            setCorrectTranslations(correctTranslations + 1)
             if (difficultyString === Difficulty[Difficulty.EASY]) throw new Error("Too easy!")
             if (difficultyString === Difficulty[Difficulty.HARD]) return createIndexCardDto(Difficulty.MEDIUM, previousCard)
             if (difficultyString === Difficulty[Difficulty.MEDIUM]) return createIndexCardDto(Difficulty.EASY, previousCard)
         }
         if (translation !== previousCard.term2) {
+            setWrongTranslations(wrongTranslations + 1)
             if (difficultyString === Difficulty[Difficulty.HARD]) throw new Error("Already difficult!")
             if (difficultyString === Difficulty[Difficulty.MEDIUM]) return createIndexCardDto(Difficulty.HARD, previousCard)
             if (difficultyString === Difficulty[Difficulty.EASY]) return createIndexCardDto(Difficulty.MEDIUM, previousCard)
@@ -74,7 +80,13 @@ export default function Game({deck, updateIndexCard}: GameProps) {
                 )
                 :
                 (
-                    <div>win</div>
+                    <div id={"stats"}>
+                        <h2>
+                            All cards done!
+                        </h2>
+                        <p>You translated {correctTranslations} words correctly</p>
+                        <p>{wrongTranslations} translations were wrong</p>
+                    </div>
                 )}
         </div>
     )
